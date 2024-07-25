@@ -1,0 +1,17 @@
+---
+const { title } = Astro.props;
+---
+
+<hr />
+<article>
+  <h2 id={title.toLowerCase()}>{title}</h2>
+  <slot name="documentation" />
+  <slot />
+</article>
+<hr />
+
+<style>
+  hr {
+    margin: 3rem 0;
+  }
+</style>

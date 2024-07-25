@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+  :root {
+    --kila-accent-color-hsl: 37;
+
+    --kila-accent-light: hsl(var(--kila-accent-color-hsl), 100%, 75%);
+    --kila-accent: hsl(var(--kila-accent-color-hsl), 100%, 55%);
+    --kila-accent-dark: hsl(var(--kila-accent-color-hsl), 100%, 35%);
+    --kila-accent-disabled: hsl(var(--kila-accent-color-hsl), 30%, 55%);
+
+    --accent-gradient: linear-gradient(
+      45deg,
+      var(--kila-accent),
+      var(--kila-accent-light) 30%,
+      white 60%
+    );
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    background: #13151a;
+    background-size: 224px;
+    font-size: 18px;
+  }
+</style>
