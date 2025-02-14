@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -10,6 +9,15 @@ import Card from '../components/Card.astro';
 </Layout>
 
 <style>
+  @import './../styles/global.css';
+
+  html {
+    font-family: system-ui, sans-serif;
+    background: #13151a;
+    background-size: 224px;
+    font-size: 18px;
+  }
+
   main {
     margin: auto;
     padding: 1rem;

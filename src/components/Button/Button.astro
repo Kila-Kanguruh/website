@@ -4,6 +4,7 @@ interface Props {
   disabled?: boolean;
 }
 const { type = 'button', disabled } = Astro.props;
+import './../../styles/colors.css';
 ---
 
 <button type={type} {disabled}><slot /></button>
@@ -19,19 +20,15 @@ const { type = 'button', disabled } = Astro.props;
     font-size: 1rem;
     outline: none;
   }
-
   button[disabled] {
     background: var(--kila-accent-disabled);
   }
-
   button:hover {
     background: var(--kila-accent-light);
   }
-
   button:active {
     background: var(--kila-accent-dark);
   }
-
   button:focus-within {
     box-sizing: border-box;
     border: 2px solid var(--kila-accent-dark);

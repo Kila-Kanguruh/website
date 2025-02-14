@@ -1,0 +1,125 @@
+---
+import { default as ButtonComponent } from './Button.astro';
+---
+
+<div class="docs">
+  <h1>Button Component</h1>
+
+  <section>
+    <h2>Basic Usage</h2>
+    <div class="example">
+      <ButtonComponent>Example Content</ButtonComponent>
+    </div>
+    <pre><code>{'<Button>Example Content</Button>'}</code></pre>
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+    <p>No properties documented.</p>
+  </section>
+
+  <section>
+    <h2>Variants</h2>
+    
+    <h3>Default Button</h3>
+    <div class="example">
+      <ButtonComponent>Default Button</ButtonComponent>
+    </div>
+  
+  </section>
+
+  <section>
+    <h2>CSS Variables</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><code>--kila-accent</code></td>
+          <td>Purpose of --kila-accent</td>
+        </tr>
+        
+        <tr>
+          <td><code>--kila-accent-disabled</code></td>
+          <td>Purpose of --kila-accent-disabled</td>
+        </tr>
+        
+        <tr>
+          <td><code>--kila-accent-light</code></td>
+          <td>Purpose of --kila-accent-light</td>
+        </tr>
+        
+        <tr>
+          <td><code>--kila-accent-dark</code></td>
+          <td>Purpose of --kila-accent-dark</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  
+  </section>
+</div>
+
+<style>
+  .docs {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  section {
+    margin: 2rem 0;
+  }
+
+  .example {
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.75rem;
+    border: 1px solid #eee;
+  }
+
+  th {
+    background: #f5f5f5;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  h2 {
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin-top: 1.5rem;
+  }
+</style>

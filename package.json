@@ -3,14 +3,18 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
+    "dev": "node generate-docs.js && astro dev",
+    "start": "node generate-docs.js && astro dev",
+    "build": "astro check && node generate-docs.js && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-docs": "node generate-docs.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.8.1",
+    "acorn": "^8.14.0",
+    "acorn-jsx": "^5.3.2",
+    "acorn-walk": "^8.3.4",
     "astro": "^4.11.5",
     "typescript": "^5.5.3"
   },
