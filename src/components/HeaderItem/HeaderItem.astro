@@ -1,1 +1,22 @@
-<h1>HELLO</h1>
+---
+const { text, href } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<a class={currentPath === href ? 'active' : ''} href={href}>{text}</a>
+
+<style>
+  @import '../../styles/colors.css';
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 18px 9px 10px 15px;
+  }
+
+  .active,
+  a:hover {
+    color: white;
+    background-color: var(--kila-accent);
+  }
+</style>

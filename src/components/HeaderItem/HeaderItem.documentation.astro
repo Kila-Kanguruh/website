@@ -8,7 +8,9 @@ import { default as HeaderItemComponent } from './HeaderItem.astro';
   <section>
     <h2>Basic Usage</h2>
     <div class="example">
-      <HeaderItemComponent>Example Content</HeaderItemComponent>
+      <HeaderItemComponent text="Example Content" href="#"
+        >Example Content</HeaderItemComponent
+      >
     </div>
     <pre><code>{'<HeaderItem>Example Content</HeaderItem>'}</code></pre>
   </section>
@@ -20,12 +22,11 @@ import { default as HeaderItemComponent } from './HeaderItem.astro';
 
   <section>
     <h2>Variants</h2>
-    
+
     <h3>Default HeaderItem</h3>
     <div class="example">
       <HeaderItemComponent>Default HeaderItem</HeaderItemComponent>
     </div>
-  
   </section>
 
   <section>
@@ -91,3 +92,4 @@ import { default as HeaderItemComponent } from './HeaderItem.astro';
     margin-top: 1.5rem;
   }
 </style>
+

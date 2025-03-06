@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node generate-docs.js && astro dev",
-    "start": "node generate-docs.js && astro dev",
+    "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro check && node generate-docs.js && astro build",
     "preview": "astro preview",
     "astro": "astro",

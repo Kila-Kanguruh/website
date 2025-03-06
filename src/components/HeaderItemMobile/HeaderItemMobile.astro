@@ -1,0 +1,46 @@
+---
+import ActiveArrow from '../ActiveArrow/ActiveArrow.astro';
+
+const { text, href } = Astro.props;
+const currentPath = Astro.url.pathname;
+const active = currentPath === href;
+---
+
+<span>
+  <ActiveArrow class="arrow left" class:list={[{ active }]} />
+  <a class:list={[{ active }]} href={href}>{text}</a>
+  <ActiveArrow class="arrow right" class:list={[{ active }]} />
+</span>
+
+<style>
+  @import '../../styles/colors.css';
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .active,
+  span:hover {
+    color: white;
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  span:hover .arrow,
+  .arrow.active {
+    display: block;
+  }
+
+  .arrow.right {
+    transform: rotate(180deg);
+  }
+</style>
