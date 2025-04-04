@@ -3,36 +3,22 @@ import HeaderMenuItem from '../components/HeaderItem/HeaderItem.astro';
 import HeaderMenuItemMobile from '../components/HeaderItemMobile/HeaderItemMobile.astro';
 import CurlArrow from '../components/CurlArrow/CurlArrow.astro';
 import CloseIcon from '../components/CloseIcon/CloseIcon.astro';
+import HeroSlider from '../components/HeroSlider/HeroSlider.astro';
+import Divider from '../components/Divider/Divider.astro';
+import Card from '../components/Card/Card.astro';
+import GraphicTeddy from '../components/graphics/GraphicTeddy/GraphicTeddy.astro';
+import GraphicContact from '../components/graphics/GraphicContact/GraphicContact.astro';
+import GraphicJump from '../components/graphics/GraphicJump/GraphicJump.astro';
+import IconChat from '../components/icons/IconChat/IconChat.astro';
+import IconNote from '../components/icons/IconNote/IconNote.astro';
+import Header from '../components/Header/Header.astro';
 
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
-const open = false;
 ---
-
-<script>
-  // I know this is not nice to do, but I do not care
-  const burger = document.querySelector('.burger')!;
-  const menu = document.querySelector('.menu-mobile')!;
-  const arrow = document.querySelector('.arrow')!;
-  const close = document.querySelector('.close')!;
-
-  burger.addEventListener('click', () => {
-    menu.classList.add('open');
-    arrow.classList.add('open');
-    burger.classList.add('open');
-    close.classList.add('open');
-  });
-
-  close.addEventListener('click', () => {
-    menu.classList.remove('open');
-    arrow.classList.remove('open');
-    burger.classList.remove('open');
-    close.classList.remove('open');
-  });
-</script>
 
 <html lang="en">
   <head>
@@ -44,77 +30,25 @@ const open = false;
     <title>{title}</title>
   </head>
   <body>
-    <!-- Navigation Header -->
-    <nav class="menu-desktop">
-      <a href="/">
-        <img src="/images/kila_header1.png" alt="Kinderladen Logo" />
-      </a>
-      <ul>
-        <li><HeaderMenuItem text="Unser Konzept" href="/unser-konzept" /></li>
-        <li><HeaderMenuItem text="RaumGestaltung" href="/raumgestaltung" /></li>
-        <li><HeaderMenuItem text="Tagesablauf" href="/tagesablauf" /></li>
-        <li>
-          <HeaderMenuItem
-            text="Zusammenarbeit mit Eltern"
-            href="/zusammenarbeit"
-          />
-        </li>
-        <li><HeaderMenuItem text="Finanzierung" href="/finanzierung" /></li>
-        <li><HeaderMenuItem text="Eingewohnung" href="/eingewohnung" /></li>
-        <li><HeaderMenuItem text="Freie Stellen" href="/freie-stellen" /></li>
-        <li>
-          <HeaderMenuItem
-            text="Anfrage zu freien Kinderladenplätzen"
-            href="/anfrage"
-          />
-        </li>
-      </ul>
-      <span class="burger-container">
-        <img
-          class:list={['burger', { open }]}
-          src="/icons/burger.svg"
-          alt="Burger Menu"
-        />
-        <CloseIcon class:list={['close', { open }]} />
-        <CurlArrow class:list={['arrow', { open }]} />
-      </span>
-    </nav>
+    <div class="page-container">
+      <Header />
 
-    <nav class:list={['menu-mobile', { open }]}>
-      <!-- <BackgroundMenu /> -->
-      <ul>
-        <li>
-          <HeaderMenuItemMobile text="Unser Konzept" href="/unser-konzept" />
-        </li>
-        <li>
-          <HeaderMenuItemMobile text="RaumGestaltung" href="/raumgestaltung" />
-        </li>
-        <li><HeaderMenuItemMobile text="Tagesablauf" href="/tagesablauf" /></li>
-        <li>
-          <HeaderMenuItemMobile
-            text="Zusammenarbeit mit Eltern"
-            href="/zusammenarbeit"
-          />
-        </li>
-        <li>
-          <HeaderMenuItemMobile text="Finanzierung" href="/finanzierung" />
-        </li>
-        <li>
-          <HeaderMenuItemMobile text="Eingewohnung" href="/eingewohnung" />
-        </li>
-        <li>
-          <HeaderMenuItemMobile text="Freie Stellen" href="/freie-stellen" />
-        </li>
-        <li>
-          <HeaderMenuItemMobile
-            text="Anfrage zu freien Kinderladenplätzen"
-            href="/anfrage"
-          />
-        </li>
-      </ul>
-    </nav>
+      <div class="hero">
+        <slot name="hero" />
+      </div>
+      <main>
+        <slot />
+      </main>
 
-    <slot />
+      <footer>
+        <HeaderMenuItem text="Kontakt" href="/kontakt"
+          ><IconChat slot="icon" /></HeaderMenuItem
+        >
+        <HeaderMenuItem text="Impressum" href="/impressum"
+          ><IconNote slot="icon" /></HeaderMenuItem
+        >
+      </footer>
+    </div>
   </body>
 </html>
 
@@ -125,131 +59,38 @@ const open = false;
   body {
     max-width: 1280px;
     margin: 0 auto;
+    overflow-x: hidden;
+    min-height: 100vh;
   }
 
-  .menu-desktop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .menu-desktop ul {
-    gap: 1rem;
-    list-style: none;
-    font-weight: 500;
-    display: none;
-    position: relative;
-    margin-left: auto;
-
-    @media (min-width: 768px) {
-      display: flex;
-    }
-  }
-
-  .burger {
-    @media (min-width: 768px) {
-      display: none;
-    }
-  }
-
-  .burger.open {
-    display: none;
-  }
-
-  .menu-mobile {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 85%;
-    width: 95%;
-    clip-path: polygon(
-      11% 4.94%,
-      90.04% 3.11%,
-      93.79% 2.8%,
-      97.25% 3.29%,
-      99.88% 4.33%,
-      100.46% 5.74%,
-      100.33% 7.04%,
-      99.55% 19.55%,
-      99.55% 19.55%,
-      98.59% 52.34%,
-      94.3% 88.66%,
-      92.72% 91.18%,
-      90.67% 93.48%,
-      88.1% 94.48%,
-      51.07% 94.58%,
-      12.59% 92.49%,
-      9.42% 92.49%,
-      6.93% 91.62%,
-      4.26% 90.18%,
-      2.35% 88.02%,
-      0.93% 59.07%,
-      1.97% 29.46%,
-      3.75% 12.08%,
-      5.33% 8.8%,
-      7.76% 6.63%
-    );
-    background-color: var(--kila-accent);
-  }
-
-  .menu-mobile.open {
-    position: fixed;
-    margin: 0 auto;
-    left: 50%;
-
-    display: flex;
-    transform: translate(-50%);
-  }
-
-  .menu-mobile ul {
-    text-align: center;
-    width: 65%;
+  .page-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    min-height: 100vh;
+  }
+
+  main {
+    margin: auto;
+    overflow-x: hidden;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    font-size: 20px;
+    flex: 1;
+
+    @media (min-width: 768px) {
+      padding: 0;
+      overflow-x: visible;
+    }
+    line-height: 1.6;
+  }
+
+  footer {
+    display: flex;
     gap: 1rem;
-    height: 80%;
-    list-style: none;
-    padding: 0;
-    font-weight: 500;
-  }
-
-  .menu-mobile ul li {
-    height: 34px;
-  }
-
-  .menu-desktop {
-    position: relative;
-  }
-
-  .burger-container {
-    position: relative;
-  }
-
-  .arrow {
-    position: absolute;
-    display: none;
-    bottom: 0;
-    left: -138px;
-    bottom: -71px;
-  }
-
-  .close {
-    display: none;
-    position: absolute;
-    top: -23px;
-    left: -47px;
-  }
-
-  .arrow.open {
-    display: block;
-    animation: gelatine 1s alternate;
-  }
-
-  .close.open {
-    display: block;
+    flex-direction: row-reverse;
+    padding: 1rem;
+    margin-top: auto;
   }
 
   @keyframes gelatine {

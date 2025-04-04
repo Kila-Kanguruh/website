@@ -1,0 +1,330 @@
+---
+import GraphicsKids from '../graphics/GraphicKids/GraphicKids.astro';
+import Button from '../Button/Button.astro';
+import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
+---
+
+<div class="hero-slider">
+  <div class="slides-container">
+    <!-- Slide 1 -->
+    <div class="slide">
+      <div class="slide-content">
+        <div class="slide-graphic">
+          <GraphicsKids />
+        </div>
+        <div class="slide-text">
+          <h2>Wilkommen bei Kinderladen Känguruh!</h2>
+          <Button cta class="hero-button">Melde dich!</Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="slide-content">
+        <div class="slide-graphic">
+          <GraphicKidPlay />
+        </div>
+        <div class="slide-text">
+          <h2>FREIE PLATZE - Kinderladenjahr August 2025 - Juli 2026</h2>
+          <Button cta class="hero-button">Melde dich!</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-controls">
+    <button class="prev-btn" aria-label="Previous slide">←</button>
+    <div class="dots"></div>
+    <button class="next-btn" aria-label="Next slide">→</button>
+  </div>
+</div>
+
+<style>
+  .hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* min-height: 400px; */
+    /* max-height: 800px; */
+    overflow: hidden;
+
+    @media screen and (max-width: 1200px) {
+      padding-bottom: 5rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      padding-bottom: 7rem;
+    }
+  }
+
+  .slide-text h2 {
+    font-weight: 600;
+    position: relative;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 3rem !important;
+    }
+  }
+
+  :global(.hero-button) {
+    /* margin: 0 auto; */
+  }
+
+  .slides-container {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide {
+    width: 33.333%;
+    height: 100%;
+  }
+
+  .slide-content {
+    display: flex;
+    height: 100%;
+    padding: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+
+    @media screen and (max-width: 1200px) {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .slide-graphic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide-graphic svg {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .slide-text {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    width: 590px;
+
+    @media screen and (max-width: 1200px) {
+      position: unset;
+      width: 100%;
+    }
+  }
+
+  .slide-text h2 {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hero-button {
+    align-self: center;
+    margin: 0 auto;
+  }
+
+  .hero-button[data-max-width='true'] {
+    width: 100%;
+  }
+
+  .slider-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .prev-btn,
+  .next-btn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    z-index: 2;
+    display: none;
+  }
+
+  .dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  :global(.dot) {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #f1c40f; /* Yellow color */
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: none;
+  }
+
+  :global(.dot.active) {
+    background-color: #e67e22; /* Darker orange/yellow for active state */
+    transform: scale(1.5); /* Slightly larger when active */
+  }
+
+  @media (max-width: 1200px) {
+    .slide-content {
+      padding: 1rem;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .slide-text {
+      align-items: center;
+    }
+
+    .slider-controls {
+      bottom: 1rem;
+    }
+
+    .prev-btn,
+    .next-btn {
+      padding: 0.25rem 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-slider {
+      min-height: 300px;
+    }
+
+    .slide-text {
+      min-width: 200px;
+    }
+  }
+</style>
+
+<script>
+  class HeroSlider {
+    currentSlide: number;
+    slidesContainer: HTMLElement | null;
+    slides: NodeListOf<HTMLElement>;
+    prevBtn: HTMLElement | null;
+    nextBtn: HTMLElement | null;
+    dotsContainer: HTMLElement | null;
+
+    constructor() {
+      this.currentSlide = 0;
+      this.slidesContainer = document.querySelector('.slides-container');
+      this.slides = document.querySelectorAll('.slide');
+      this.prevBtn = document.querySelector('.prev-btn');
+      this.nextBtn = document.querySelector('.next-btn');
+      this.dotsContainer = document.querySelector('.dots');
+
+      this.init();
+    }
+
+    init() {
+      if (!this.dotsContainer || !this.prevBtn || !this.nextBtn) {
+        console.error('Slider elements not found.');
+        return;
+      }
+
+      // Create dots
+      this.slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('dot');
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => this.goToSlide(index));
+        this.dotsContainer?.appendChild(dot);
+      });
+
+      // Add event listeners
+      this.prevBtn.addEventListener('click', () => this.prevSlide());
+      this.nextBtn.addEventListener('click', () => this.nextSlide());
+      this.initTouch();
+    }
+
+    initTouch() {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let touchStartY = 0;
+      let touchEndY = 0;
+      this.slidesContainer?.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      });
+      this.slidesContainer?.addEventListener('touchend', (event) => {
+        touchEndX = event.changedTouches[0].clientX;
+        touchEndY = event.changedTouches[0].clientY;
+
+        // Calculate horizontal and vertical distance
+        const horizontalDistance = touchEndX - touchStartX;
+        const verticalDistance = touchEndY - touchStartY;
+
+        // Only trigger slide change if horizontal swipe is greater than vertical swipe
+        if (Math.abs(horizontalDistance) > Math.abs(verticalDistance)) {
+          if (horizontalDistance > 50) {
+            this.prevSlide();
+          } else if (horizontalDistance < -50) {
+            this.nextSlide();
+          }
+        }
+      });
+    }
+
+    updateSlidePosition() {
+      if (!this.slidesContainer) {
+        console.error('Slides container not found.');
+        return;
+      }
+
+      this.slidesContainer.style.transform = `translateX(-${this.currentSlide * 33.333}%)`;
+
+      // Update dots
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === this.currentSlide);
+      });
+    }
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+      this.updateSlidePosition();
+    }
+
+    prevSlide() {
+      this.currentSlide =
+        (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+      this.updateSlidePosition();
+    }
+
+    goToSlide(index: number) {
+      this.currentSlide = index;
+      this.updateSlidePosition();
+    }
+
+    startAutoPlay(interval = 5000) {
+      setInterval(() => this.nextSlide(), interval);
+    }
+  }
+
+  // Initialize the slider
+  document.addEventListener('DOMContentLoaded', () => {
+    new HeroSlider();
+  });
+</script>

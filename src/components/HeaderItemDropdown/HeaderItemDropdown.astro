@@ -1,0 +1,121 @@
+---
+// MenuItem.astro
+// INFO: this is only a draft, not used on any page.
+// In case a dropdown menu with children is really needed, this can be used.
+export interface Props {
+  title: string;
+  href?: string;
+  subItems?: Array<{ title: string; href: string }>;
+}
+
+const { title, href, subItems = [] } = Astro.props;
+const hasSubItems = subItems.length > 0;
+---
+
+<div class="menu-item">
+  {
+    hasSubItems ? (
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          {title}
+          <span class="dropdown-icon">▼</span>
+        </button>
+        <div class="dropdown-content">
+          {subItems.map((item) => (
+            <a href={item.href}>{item.title}</a>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <a href={href}>{title}</a>
+    )
+  }
+</div>
+
+<style>
+  .menu-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .dropdown-icon {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+    display: inline-block;
+  }
+
+  @media (max-width: 768px) {
+    .menu-item {
+      display: block;
+      width: 100%;
+    }
+
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      padding-left: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Opzionale: per supportare navigazione touch su mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggles = document.querySelectorAll('.dropdown-toggle');
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', (e) => {
+        const dropdown = (e.currentTarget as HTMLElement).nextElementSibling;
+        if (dropdown && window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+          if (dropdown.classList.contains('active')) {
+            (dropdown as HTMLElement).style.display = 'block';
+          } else {
+            (dropdown as HTMLElement).style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+</script>

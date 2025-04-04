@@ -1,0 +1,27 @@
+---
+const { type = 'curly' } = Astro.props;
+---
+
+<div class={type}></div>
+
+<style>
+  div {
+    position: relative;
+    width: 100%;
+    height: 7rem;
+    left: -40vw;
+    width: 140vw;
+    background-position: left;
+    background-repeat: repeat;
+  }
+
+  div.curly {
+    background-image: url('/graphics/DividerCurly.svg');
+    height: 7rem;
+  }
+
+  div.wave {
+    background-image: url('/graphics/DividerWave.svg');
+    height: 2rem;
+  }
+</style>

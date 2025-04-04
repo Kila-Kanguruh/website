@@ -1,0 +1,135 @@
+---
+import Button from '../Button/Button.astro';
+// Definizione delle props
+interface Props {
+  title: string;
+  text: string;
+  buttonText: string;
+  buttonLink: string;
+  imagePosition?: 'left' | 'right';
+}
+
+// Valori di default per le props
+const {
+  title,
+  text,
+  buttonText,
+  buttonLink,
+  imagePosition = 'left',
+} = Astro.props;
+---
+
+<div class="card">
+  <div
+    class={`card-content ${imagePosition === 'right' ? 'order-first' : 'order-last'}`}
+  >
+    <h3 class="card-title">{title}</h3>
+    <p class="card-text">{text}</p>
+    <Button href=`${buttonLink}`>
+      {buttonText}
+    </Button>
+  </div>
+  <div
+    class={`card-image ${imagePosition === 'right' ? 'order-last' : 'order-first'}`}
+  >
+    <slot name="image" />
+  </div>
+</div>
+
+<style>
+  .card {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+    max-width: 1200px;
+  }
+
+  .card-content,
+  .card-image {
+    flex: 1;
+    padding: 2rem;
+  }
+
+  .card-image.order-first {
+    order: -1;
+  }
+
+  .card-image.order-last {
+    order: 1;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .card-text {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #666;
+  }
+
+  .card-button {
+    display: inline-block;
+    background-color: #f9a826;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+  }
+
+  .card-button:hover {
+    background-color: #e89615;
+  }
+
+  .card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-image :global(img),
+  .card-image :global(svg) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card {
+      flex-direction: column;
+    }
+
+    .card:has(.card-content.order-first) {
+      flex-direction: column-reverse;
+    }
+
+    .card-content,
+    .card-image {
+      /* width: 100%; */
+    }
+
+    .order-first {
+      order: 1;
+    }
+
+    .order-last {
+      order: 2;
+    }
+  }
+</style>

@@ -1,21 +1,41 @@
 ---
-import HeaderItem from '../components/HeaderItem/HeaderItem.astro';
+import Card from '../components/Card/Card.astro';
+import Divider from '../components/Divider/Divider.astro';
+import GraphicContact from '../components/graphics/GraphicContact/GraphicContact.astro';
+import GraphicJump from '../components/graphics/GraphicJump/GraphicJump.astro';
+import GraphicTeddy from '../components/graphics/GraphicTeddy/GraphicTeddy.astro';
+import HeroSlider from '../components/HeroSlider/HeroSlider.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-  <main></main>
+  <HeroSlider slot="hero" />
+  <Divider type="curly" />
+  <Card
+    title="Kontakt"
+    text="Turpis elementum aliquet etiam placerat ornare eu, consequat diam, metus. Platea lectus, porttitor posuere tristique, urna lacus dui eros tempor. Consectetur fusce ipsum auctor diam id feugiat vel posuere, lorem. Quis, morbi et sit posuere pellentesque amet faucibus ex adipiscing. Et vitae nascetur ac sed ligula massa, ut rutrum metus."
+    buttonText="Weiterlesen"
+    imagePosition="right"
+    buttonLink="#"><GraphicContact slot="image" /></Card
+  >
+  <Card
+    title="Kinderladen"
+    text="In morbi aenean varius maximus, elementum viverra lectus dui, etiam. Convallis, est semper diam pharetra dis, sed nullam tempor aliquam. Imperdiet non, nulla laoreet, porta erat dui eros tempus bibendum. Vestibulum ipsum proin vulputate, vestibulum faucibus dapibus vitae faucibus rhoncus. Massa dui amet convallis eget praesent eget vel amet at."
+    buttonText="Weiterlesen"
+    buttonLink="#"
+  >
+    <GraphicTeddy slot="image" /></Card
+  >
+  <Card
+    title="Kindertreff"
+    text="In morbi aenean varius maximus, elementum viverra lectus dui, etiam. Convallis, est semper diam pharetra dis, sed nullam tempor aliquam. Imperdiet non, nulla laoreet, porta erat dui eros tempus bibendum. Vestibulum ipsum proin vulputate, vestibulum faucibus dapibus vitae faucibus rhoncus. Massa dui amet convallis eget praesent eget vel amet at."
+    buttonText="Weiterlesen"
+    buttonLink="#"
+    imagePosition="right"
+  >
+    <GraphicJump slot="image" /></Card
+  >
+
+  <Divider type="wave" />
 </Layout>
 
-<style>
-  /* @import './../styles/global.css'; */
-
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    font-size: 20px;
-    line-height: 1.6;
-  }
-</style>

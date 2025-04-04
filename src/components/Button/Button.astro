@@ -2,35 +2,84 @@
 interface Props {
   type?: 'submit' | 'reset' | 'button';
   disabled?: boolean;
+  maxWidth?: boolean;
+  cta?: boolean;
+  class?: string;
+  href?: string;
 }
-const { type = 'button', disabled } = Astro.props;
+const {
+  type = 'button',
+  disabled,
+  maxWidth,
+  cta,
+  class: className,
+  href,
+} = Astro.props;
 import './../../styles/colors.css';
 ---
 
-<button type={type} {disabled}><slot /></button>
+{
+  href ? (
+    <a
+      href={href}
+      class:list={[
+        'button',
+        className,
+        maxWidth && 'max-width',
+        cta && 'cta',
+        disabled && 'disabled',
+      ]}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      {disabled}
+      class:list={['button', className, maxWidth && 'max-width', cta && 'cta']}
+    >
+      <slot />
+    </button>
+  )
+}
 
 <style>
-  button {
+  :global(.button) {
     background: var(--kila-accent);
     padding: 1rem;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     font-family: 'Fredoka', sans-serifk;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     outline: none;
+    width: fit-content;
     border: none;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
   }
-  button[disabled] {
+  .button.max-width {
+    width: 100%;
+  }
+  .button.cta {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  button[disabled],
+  .button.disabled {
     background: var(--kila-accent-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
   }
-  button:hover {
+  .button:hover {
     background: var(--kila-accent-light);
   }
-  button:active {
+  .button:active {
     background: var(--kila-accent-dark);
   }
-  button:focus-within {
+  .button:focus-within {
     box-sizing: border-box;
     border: 2px solid var(--kila-accent-dark);
   }

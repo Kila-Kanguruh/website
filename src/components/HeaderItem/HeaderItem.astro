@@ -1,22 +1,38 @@
 ---
-const { text, href } = Astro.props;
+const { text, href, noOver } = Astro.props;
 const currentPath = Astro.url.pathname;
+// TODO: da aggiungere icona per fare link footer, gestire anche hover, con icona mi sa che fa schifo
 ---
 
-<a class={currentPath === href ? 'active' : ''} href={href}>{text}</a>
+<div>
+  <div class="icon">
+    <slot name="icon" />
+  </div>
+  <a class={currentPath === href ? 'active' : ''} href={href}>{text}</a>
+</div>
 
 <style>
   @import '../../styles/colors.css';
+  div {
+    display: flex;
+    align-items: center;
+  }
+
   a {
     color: var(--color-text);
     text-decoration: none;
     padding: 0.5rem;
     border-radius: 18px 9px 10px 15px;
+    font-weight: 500;
   }
 
   .active,
   a:hover {
     color: white;
     background-color: var(--kila-accent);
+  }
+
+  .icon {
+    width: 2rem;
   }
 </style>
