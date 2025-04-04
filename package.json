@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && node generate-docs.js && astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "generate-docs": "node generate-docs.js"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.8.1",
