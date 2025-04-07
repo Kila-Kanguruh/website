@@ -1,16 +1,26 @@
 ---
+import Banner from '../components/Banner/Banner.astro';
 import Card from '../components/Card/Card.astro';
 import Divider from '../components/Divider/Divider.astro';
 import GraphicContact from '../components/graphics/GraphicContact/GraphicContact.astro';
 import GraphicJump from '../components/graphics/GraphicJump/GraphicJump.astro';
 import GraphicTeddy from '../components/graphics/GraphicTeddy/GraphicTeddy.astro';
 import HeroSlider from '../components/HeroSlider/HeroSlider.astro';
+import IconHeart from '../components/icons/IconHeart/IconHeart.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome to Astro.">
   <HeroSlider slot="hero" />
-  <Divider type="curly" />
+  <div class="wave">
+    <Divider type="curly" />
+  </div>
+  <Banner title="Freie Plätze">
+    <IconHeart slot="icon" />
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum doloremque ut,
+    sequi cum provident repudiandae magnam saepe atque? Totam, consequatur. Iusto
+    modi cumque enim temporibus officiis adipisci quae sequi omnis.
+  </Banner>
   <Card
     title="Kontakt"
     text="Turpis elementum aliquet etiam placerat ornare eu, consequat diam, metus. Platea lectus, porttitor posuere tristique, urna lacus dui eros tempor. Consectetur fusce ipsum auctor diam id feugiat vel posuere, lorem. Quis, morbi et sit posuere pellentesque amet faucibus ex adipiscing. Et vitae nascetur ac sed ligula massa, ut rutrum metus."
@@ -39,3 +49,8 @@ import Layout from '../layouts/Layout.astro';
   <Divider type="wave" />
 </Layout>
 
+<style>
+  :global(.wave) {
+    margin-bottom: 5rem;
+  }
+</style>
