@@ -1,7 +1,5 @@
 ---
-import GraphicsKids from '../graphics/GraphicKids/GraphicKids.astro';
 import Button from '../Button/Button.astro';
-import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
 ---
 
 <div class="hero-slider">
@@ -10,7 +8,7 @@ import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
     <div class="slide">
       <div class="slide-content">
         <div class="slide-graphic">
-          <GraphicsKids />
+          <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
         </div>
         <div class="slide-text">
           <h2>Wilkommen bei Kinderladen Känguruh!</h2>
@@ -23,7 +21,10 @@ import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
     <div class="slide">
       <div class="slide-content">
         <div class="slide-graphic">
-          <GraphicKidPlay />
+          <img
+            src="/graphics/baby_kangoroo_transparent.png"
+            alt="Baby Kangoroo"
+          />
         </div>
         <div class="slide-text">
           <h2>FREIE PLATZE - Kinderladenjahr August 2025 - Juli 2026</h2>
@@ -45,8 +46,6 @@ import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
     position: relative;
     width: 100%;
     height: 100vh;
-    /* min-height: 400px; */
-    /* max-height: 800px; */
     overflow: hidden;
 
     @media screen and (max-width: 1200px) {
@@ -105,11 +104,12 @@ import GraphicKidPlay from '../graphics/GraphicKidPlay/GraphicKidPlay.astro';
     justify-content: center;
   }
 
-  .slide-graphic svg {
+  .slide-graphic svg,
+  .slide-graphic img {
     width: 100%;
     height: auto;
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 750px;
+    max-height: 750px;
   }
 
   .slide-text {
