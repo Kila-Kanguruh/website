@@ -1,0 +1,149 @@
+---
+import GraphicTeddy from "../../components/graphics/GraphicTeddy/GraphicTeddy.astro";
+import HeroImage from "../../components/HeroImage/HeroImage.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="unser-kinderladen">
+  <HeroImage slot="hero" text="Unser Kinderladen">
+    <GraphicTeddy />
+  </HeroImage>
+
+  <div class="navigation-buttons">
+    <button class="nav-button active" data-section="about">Über uns</button>
+    <button class="nav-button" data-section="team">Team & Kinder</button>
+    <button class="nav-button" data-section="pedagogy">Pädagogisches Konzept</button>
+    <button class="nav-button" data-section="needs">Bedürfnisse</button>
+    <button class="nav-button" data-section="mission">Leitbild</button>
+  </div>
+
+  <div class="content-sections">
+    <section id="about" class="content-section active">
+      <h2>Über uns</h2>
+      <p>
+        Der Kinderladen Känguruh e. V. ist seit 1990 eine Elterninitiative in freier
+        Trägerschaft und arbeitet als anerkannter freier Träger der Jugendhilfe. Er
+        ist damit der älteste bestehende Kinderladen in Dresden.
+      </p>
+    </section>
+
+    <section id="team" class="content-section">
+      <h2>Unser Team und die Kinder</h2>
+      <p>
+        In unserem Kinderladen betreuen 5 pädagogische Mitarbeiter/innen täglich 26
+        Kinder im Alter von 1,5 Jahren bis zum Schuleintritt. Unterstützt wird unser
+        pädagogisches Team von zwei Bufdis und Praktikant/innen.
+      </p>
+    </section>
+
+    <section id="pedagogy" class="content-section">
+      <h2>Pädagogisches Selbstverständnis</h2>
+      <p>
+        Da wir uns als ein Lebens- und Lernort von Kindern verstehen, entspricht es
+        unserem pädagogischen Selbstverständnis, jedes Kind mit seinen individuellen
+        Interessen und Bedürfnissen wahrzunehmen und in den Mittelpunkt unserer
+        pädagogischen Arbeit zu rücken.
+      </p>
+    </section>
+
+    <section id="needs" class="content-section">
+      <h2>Bedürfnisse und Entwicklung</h2>
+      <p>
+        Die Erfüllung kindlicher Bedürfnisse – wie das Bedürfnis nach Geborgenheit,
+        Anerkennung, Zuverlässigkeit, Authentizität und Entfaltung, aber auch die
+        Auseinandersetzung mit sich selbst und der sozialen Umwelt – sind
+        Grundvoraussetzungen dafür, dass Kinder sich zu eigenständigen,
+        gemeinschaftsfähigen und selbstbestimmten Persönlichkeiten entwickeln und
+        Schlüsselkompetenzen für ein lebenslanges Lernen ausbilden können.
+      </p>
+    </section>
+
+    <section id="mission" class="content-section">
+      <h2>Leitbild</h2>
+      <p>
+        Unser Leitbild dient sowohl den pädagogischen Fachkräften als auch den
+        Eltern als Orientierung im Alltag mit den Prinzipien des Känguruh e. V.
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #4a5568;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .nav-button:hover {
+    background: #4a5568;
+    color: white;
+  }
+
+  .nav-button.active {
+    background: #4a5568;
+    color: white;
+  }
+
+  .content-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .content-section.active {
+    display: block;
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.nav-button');
+    const sections = document.querySelectorAll('.content-section');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and sections
+        buttons.forEach(btn => btn.classList.remove('active'));
+        sections.forEach(section => section.classList.remove('active'));
+
+        // Add active class to clicked button and corresponding section
+        button.classList.add('active');
+        const sectionId = button.getAttribute('data-section');
+        if (sectionId) {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.classList.add('active');
+          }
+        }
+
+        // Update URL without page reload
+        const newUrl = `${window.location.pathname}#${sectionId || ''}`;
+        window.history.pushState({}, '', newUrl);
+      });
+    });
+
+    // Handle initial load with hash in URL
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const button = document.querySelector(`[data-section="${hash}"]`) as HTMLButtonElement;
+      if (button) {
+        button.click();
+      }
+    }
+  });
+</script>
