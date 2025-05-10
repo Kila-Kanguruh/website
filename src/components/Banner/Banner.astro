@@ -6,7 +6,7 @@ const { title, className } = Astro.props;
   <span class="icon">
     <slot name="icon" />
   </span>
-  <h2>{title}</h2>
+  {title && <h2>{title}</h2>}
   <slot />
 </div>
 
