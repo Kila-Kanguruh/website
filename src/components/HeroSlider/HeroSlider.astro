@@ -8,19 +8,6 @@ import Button from '../Button/Button.astro';
     <div class="slide">
       <div class="slide-content">
         <div class="slide-graphic">
-          <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
-        </div>
-        <div class="slide-text">
-          <h2>Wilkommen bei Kinderladen Känguruh!</h2>
-          <Button cta href="/kontakt" class="hero-button">Melde dich!</Button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 2 -->
-    <div class="slide">
-      <div class="slide-content">
-        <div class="slide-graphic">
           <img
             src="/graphics/baby_kangoroo_transparent.png"
             alt="Baby Kangoroo"
@@ -28,6 +15,19 @@ import Button from '../Button/Button.astro';
         </div>
         <div class="slide-text">
           <h2>FREIE PLATZE - Kinderladenjahr August 2025 - Juli 2026</h2>
+          <Button cta href="/kontakt" class="hero-button">Melde dich!</Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+     <div class="slide">
+      <div class="slide-content">
+        <div class="slide-graphic">
+          <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
+        </div>
+        <div class="slide-text">
+          <h2>Wilkommen bei Kinderladen Känguruh!</h2>
           <Button cta href="/kontakt" class="hero-button">Melde dich!</Button>
         </div>
       </div>
@@ -121,24 +121,24 @@ import Button from '../Button/Button.astro';
   }
 
   .hero-button {
-    align-self: center;
-    margin: 0 auto;
+    /* align-self: center; */
+    /* margin: 1rem auto; */
   }
 
   .hero-button[data-max-width='true'] {
-    width: 100%;
+    /* width: 100%; */
   }
 
   .slider-controls {
     position: absolute;
-    bottom: 2rem;
+    bottom: .5rem;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    padding: 0 1rem;
+    padding: 1rem 1rem 0;
   }
 
   .prev-btn,
@@ -182,7 +182,7 @@ import Button from '../Button/Button.astro';
     }
 
     .slider-controls {
-      bottom: 1rem;
+      bottom: .5rem;
     }
 
     .prev-btn,
