@@ -1,11 +1,11 @@
 ---
-import CloseIcon from '../CloseIcon/CloseIcon.astro';
-import CurlArrow from '../CurlArrow/CurlArrow.astro';
-import HeaderItem from '../HeaderItem/HeaderItem.astro';
-import HeaderMenuItemMobile from '../HeaderItemMobile/HeaderItemMobile.astro';
+import CloseIcon from "../CloseIcon/CloseIcon.astro";
+import CurlArrow from "../CurlArrow/CurlArrow.astro";
+import HeaderItem from "../HeaderItem/HeaderItem.astro";
+import HeaderMenuItemMobile from "../HeaderItemMobile/HeaderItemMobile.astro";
 
 const open = false;
-const pages = await Astro.glob('../../pages/**/*.{astro,md,mdx}');
+const pages = await Astro.glob("../../pages/**/*.{astro,md,mdx}");
 
 interface MenuItem {
   title: string;
@@ -18,7 +18,7 @@ function extractMenuItems(pages: any[]): MenuItem[] {
     .map((page) => {
       const { url, frontmatter } = page;
 
-      const blackList = ['impressum', 'kontakt'];
+      const blackList = ["impressum", "kontakt"];
 
       if (blackList.some((item) => page.default.moduleId.includes(item))) {
         return null;
@@ -37,17 +37,17 @@ function extractMenuItems(pages: any[]): MenuItem[] {
 }
 
 function getDefaultTitle(url: string): string {
-  const path = url.replace(/^\/|\/$/g, '');
+  const path = url.replace(/^\/|\/$/g, "");
 
-  if (path === '') return 'Home';
+  if (path === "") return "Home";
 
   return (
     path
-      .split('/')
+      .split("/")
       .pop()
-      ?.split('-')
+      ?.split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ') || 'Page'
+      .join(" ") || "Page"
   );
 }
 
@@ -56,23 +56,23 @@ const menuItems = extractMenuItems(pages);
 
 <script>
   // I know this is not nice to do, but I do not care
-  const burger = document.querySelector('.burger')!;
-  const menu = document.querySelector('.menu-mobile')!;
-  const arrow = document.querySelector('.arrow')!;
-  const close = document.querySelector('.close')!;
+  const burger = document.querySelector(".burger")!;
+  const menu = document.querySelector(".menu-mobile")!;
+  const arrow = document.querySelector(".arrow")!;
+  const close = document.querySelector(".close")!;
 
-  burger.addEventListener('click', () => {
-    menu.classList.add('open');
-    arrow.classList.add('open');
-    burger.classList.add('open');
-    close.classList.add('open');
+  burger.addEventListener("click", () => {
+    menu.classList.add("open");
+    arrow.classList.add("open");
+    burger.classList.add("open");
+    close.classList.add("open");
   });
 
-  close.addEventListener('click', () => {
-    menu.classList.remove('open');
-    arrow.classList.remove('open');
-    burger.classList.remove('open');
-    close.classList.remove('open');
+  close.addEventListener("click", () => {
+    menu.classList.remove("open");
+    arrow.classList.remove("open");
+    burger.classList.remove("open");
+    close.classList.remove("open");
   });
 </script>
 
@@ -92,16 +92,16 @@ const menuItems = extractMenuItems(pages);
   </ul>
   <span class="burger-container">
     <img
-      class:list={['burger', { open }]}
+      class:list={["burger", { open }]}
       src="/icons/burger.svg"
       alt="Burger Menu"
     />
-    <CloseIcon class:list={['close', { open }]} />
-    <CurlArrow class:list={['arrow', { open }]} />
+    <CloseIcon class:list={["close", { open }]} />
+    <CurlArrow class:list={["arrow", { open }]} />
   </span>
 </nav>
 
-<nav class:list={['menu-mobile', { open }]}>
+<nav class:list={["menu-mobile", { open }]}>
   <!-- <BackgroundMenu /> -->
   <ul>
     {
@@ -111,12 +111,15 @@ const menuItems = extractMenuItems(pages);
         </li>
       ))
     }
+    <li>
+      <HeaderMenuItemMobile text="Kontakt" href="/kontakt" />
+    </li>
   </ul>
 </nav>
 
 <style>
-  @import './../../styles/global.css';
-  @import './../../styles/colors.css';
+  @import "./../../styles/global.css";
+  @import "./../../styles/colors.css";
 
   .menu-desktop {
     display: flex;
