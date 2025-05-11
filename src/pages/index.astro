@@ -1,13 +1,14 @@
 ---
-import Banner from '../components/Banner/Banner.astro';
-import Card from '../components/Card/Card.astro';
-import Divider from '../components/Divider/Divider.astro';
-import GraphicContact from '../components/graphics/GraphicContact/GraphicContact.astro';
-import GraphicJump from '../components/graphics/GraphicJump/GraphicJump.astro';
-import GraphicTeddy from '../components/graphics/GraphicTeddy/GraphicTeddy.astro';
-import HeroSlider from '../components/HeroSlider/HeroSlider.astro';
-import IconHeart from '../components/icons/IconHeart/IconHeart.astro';
-import Layout from '../layouts/Layout.astro';
+import Banner from "../components/Banner/Banner.astro";
+import Card from "../components/Card/Card.astro";
+import Divider from "../components/Divider/Divider.astro";
+import GraphicContact from "../components/graphics/GraphicContact/GraphicContact.astro";
+import GraphicJump from "../components/graphics/GraphicJump/GraphicJump.astro";
+import GraphicTeddy from "../components/graphics/GraphicTeddy/GraphicTeddy.astro";
+import HeroSlider from "../components/HeroSlider/HeroSlider.astro";
+import IconHeart from "../components/icons/IconHeart/IconHeart.astro";
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button/Button.astro";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -15,35 +16,37 @@ import Layout from '../layouts/Layout.astro';
   <div class="wave">
     <Divider type="curly" />
   </div>
-  <Banner title="Freie Plätze">
+  <Banner title="Wir suchen 2 BFD-Stellen ab August 2025!">
     <IconHeart slot="icon" />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum doloremque ut,
-    sequi cum provident repudiandae magnam saepe atque? Totam, consequatur. Iusto
-    modi cumque enim temporibus officiis adipisci quae sequi omnis.
+    <Button href="/kontakt">Bewirb dich jetzt!</Button>
   </Banner>
   <Card
-    title="Kontakt"
-    text="Turpis elementum aliquet etiam placerat ornare eu, consequat diam, metus. Platea lectus, porttitor posuere tristique, urna lacus dui eros tempor. Consectetur fusce ipsum auctor diam id feugiat vel posuere, lorem. Quis, morbi et sit posuere pellentesque amet faucibus ex adipiscing. Et vitae nascetur ac sed ligula massa, ut rutrum metus."
+    title="Nicht Kinder haben, sondern mit Kindern leben"
+    text="Der Kinderladen Känguruh e. V. ist seit 1990 eine Elterninitiative und freier Träger der Jugendhilfe. 5 Pädagog:innen betreuen 26 Kinder (1,5 Jahre bis Schuleintritt). Im Mittelpunkt steht das Kind mit seinen individuellen Bedürfnissen. Unser Leitbild gibt Orientierung im Alltag."
     buttonText="Weiterlesen"
-    imagePosition="right"
-    buttonLink="/freie-stellen"><GraphicContact slot="image" /></Card
+    imagePosition="left"
+    buttonLink="/unser-kinderladen"
+    ><img
+      src="/graphics/True Friends Illustration 1.svg "
+      slot="image"
+    /></Card
   >
   <Card
-    title="Kinderladen"
-    text="In morbi aenean varius maximus, elementum viverra lectus dui, etiam. Convallis, est semper diam pharetra dis, sed nullam tempor aliquam. Imperdiet non, nulla laoreet, porta erat dui eros tempus bibendum. Vestibulum ipsum proin vulputate, vestibulum faucibus dapibus vitae faucibus rhoncus. Massa dui amet convallis eget praesent eget vel amet at."
-    buttonText="Weiterlesen"
-    buttonLink="/unser-konzept"
-  >
-    <GraphicTeddy slot="image" /></Card
-  >
-  <Card
-    title="Kindertreff"
-    text="In morbi aenean varius maximus, elementum viverra lectus dui, etiam. Convallis, est semper diam pharetra dis, sed nullam tempor aliquam. Imperdiet non, nulla laoreet, porta erat dui eros tempus bibendum. Vestibulum ipsum proin vulputate, vestibulum faucibus dapibus vitae faucibus rhoncus. Massa dui amet convallis eget praesent eget vel amet at."
-    buttonText="Weiterlesen"
-    buttonLink="/eingewohnung"
+    title="Miteinander lernen, wachsen, spielen."
+    text="Im Kinderladen gestalten wir den Alltag gemeinsam mit den Kindern. Ihre Themen, ihr Spiel und ihre Fragen stehen im Mittelpunkt. Bildung beginnt für uns im Miteinander – mit Zeit, Vertrauen und offenen Ohren."
+    buttonText="Mehr über unsere Pädagogik"
+    buttonLink="/unser-kinderladen#concept"
     imagePosition="right"
   >
     <GraphicJump slot="image" /></Card
+  >
+  <Card
+    title="Lust auf Kennenlernen?"
+    text="Du suchst einen liebevollen Ort für dein Kind? Dann melde dich gern bei uns! Wir freuen uns, euch kennenzulernen und gemeinsam herauszufinden, ob unser Kinderladen zu euch passt."
+    buttonText="Kontakt aufnehmen"
+    buttonLink="/kontakt"
+  >
+    <GraphicTeddy slot="image" /></Card
   >
 
   <Divider type="wave" />
