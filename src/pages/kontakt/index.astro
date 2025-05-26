@@ -9,12 +9,12 @@ import Layout from "../../layouts/Layout.astro";
 
   <!-- The netlify attribute is not recognized, can be ignored -->
   <!-- @ts-ignore -->
-  <form netlify data-netlify="true">
-    <label>Name <input type="text" required/></label>
+  <form netlify name="kila-message" data-netlify="true">
+    <label>Name <input type="text" name="name" required/></label>
     <br />
-    <label>Email <input type="email" required/></label>
+    <label>Email <input type="email" name="email" required/></label>
     <br />
-    <label>Nachricht <textarea required></textarea></label>
+    <label>Nachricht <textarea name="message" required></textarea></label>
     <br />
     <div class="footer">
       <Button type="submit">Senden</Button>
