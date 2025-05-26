@@ -1,5 +1,5 @@
 ---
-import Button from '../Button/Button.astro';
+import Button from "../Button/Button.astro";
 ---
 
 <div class="hero-slider">
@@ -14,21 +14,25 @@ import Button from '../Button/Button.astro';
           />
         </div>
         <div class="slide-text">
-          <h2>FREIE PLATZE - Kinderladenjahr August 2025 - Juli 2026</h2>
-          <Button cta href="/kontakt" class="hero-button">Melde dich!</Button>
+          <h2>FREIE PLÄTZE - ab August 2026</h2>
+          <Button cta href="/freie-betreuungsplätze" class="hero-button"
+            >Melde dich!</Button
+          >
         </div>
       </div>
     </div>
 
     <!-- Slide 2 -->
-     <div class="slide">
+    <div class="slide">
       <div class="slide-content">
         <div class="slide-graphic">
           <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
         </div>
         <div class="slide-text">
-          <h2>Wilkommen bei Kinderladen Känguruh!</h2>
-          <Button cta href="/unser-kinderladen" class="hero-button">Mehr über uns</Button>
+          <h2>Wilkommen im Kinderladen Känguruh!</h2>
+          <Button cta href="/unser-kinderladen" class="hero-button"
+            >Mehr über uns</Button
+          >
         </div>
       </div>
     </div>
@@ -125,13 +129,13 @@ import Button from '../Button/Button.astro';
     /* margin: 1rem auto; */
   }
 
-  .hero-button[data-max-width='true'] {
+  .hero-button[data-max-width="true"] {
     /* width: 100%; */
   }
 
   .slider-controls {
     position: absolute;
-    bottom: .5rem;
+    bottom: 0.5rem;
     left: 0;
     right: 0;
     display: flex;
@@ -182,7 +186,7 @@ import Button from '../Button/Button.astro';
     }
 
     .slider-controls {
-      bottom: .5rem;
+      bottom: 0.5rem;
     }
 
     .prev-btn,
@@ -213,34 +217,34 @@ import Button from '../Button/Button.astro';
 
     constructor() {
       this.currentSlide = 0;
-      this.slidesContainer = document.querySelector('.slides-container');
-      this.slides = document.querySelectorAll('.slide');
-      this.prevBtn = document.querySelector('.prev-btn');
-      this.nextBtn = document.querySelector('.next-btn');
-      this.dotsContainer = document.querySelector('.dots');
+      this.slidesContainer = document.querySelector(".slides-container");
+      this.slides = document.querySelectorAll(".slide");
+      this.prevBtn = document.querySelector(".prev-btn");
+      this.nextBtn = document.querySelector(".next-btn");
+      this.dotsContainer = document.querySelector(".dots");
 
       this.init();
     }
 
     init() {
       if (!this.dotsContainer || !this.prevBtn || !this.nextBtn) {
-        console.error('Slider elements not found.');
+        console.error("Slider elements not found.");
         return;
       }
 
       // Create dots
       this.slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.classList.add('dot');
-        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => this.goToSlide(index));
+        const dot = document.createElement("button");
+        dot.classList.add("dot");
+        dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+        if (index === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => this.goToSlide(index));
         this.dotsContainer?.appendChild(dot);
       });
 
       // Add event listeners
-      this.prevBtn.addEventListener('click', () => this.prevSlide());
-      this.nextBtn.addEventListener('click', () => this.nextSlide());
+      this.prevBtn.addEventListener("click", () => this.prevSlide());
+      this.nextBtn.addEventListener("click", () => this.nextSlide());
       this.initTouch();
     }
 
@@ -249,11 +253,11 @@ import Button from '../Button/Button.astro';
       let touchEndX = 0;
       let touchStartY = 0;
       let touchEndY = 0;
-      this.slidesContainer?.addEventListener('touchstart', (event) => {
+      this.slidesContainer?.addEventListener("touchstart", (event) => {
         touchStartX = event.touches[0].clientX;
         touchStartY = event.touches[0].clientY;
       });
-      this.slidesContainer?.addEventListener('touchend', (event) => {
+      this.slidesContainer?.addEventListener("touchend", (event) => {
         touchEndX = event.changedTouches[0].clientX;
         touchEndY = event.changedTouches[0].clientY;
 
@@ -274,16 +278,16 @@ import Button from '../Button/Button.astro';
 
     updateSlidePosition() {
       if (!this.slidesContainer) {
-        console.error('Slides container not found.');
+        console.error("Slides container not found.");
         return;
       }
 
       this.slidesContainer.style.transform = `translateX(-${this.currentSlide * 33.333}%)`;
 
       // Update dots
-      const dots = document.querySelectorAll('.dot');
+      const dots = document.querySelectorAll(".dot");
       dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === this.currentSlide);
+        dot.classList.toggle("active", index === this.currentSlide);
       });
     }
 
@@ -309,7 +313,7 @@ import Button from '../Button/Button.astro';
   }
 
   // Initialize the slider
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     new HeroSlider();
   });
 </script>

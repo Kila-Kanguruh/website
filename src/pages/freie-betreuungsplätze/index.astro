@@ -3,7 +3,7 @@ import GraphicKidPlay from "../../components/graphics/GraphicKidPlay/GraphicKidP
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
 import Banner from "../../components/Banner/Banner.astro";
-import Button from "../../components/Button/Button.astro"
+import Button from "../../components/Button/Button.astro";
 ---
 
 <Layout title="freie-betreuungsplätze">
@@ -15,38 +15,45 @@ import Button from "../../components/Button/Button.astro"
   </Banner>
 
   <p>
-    Bei Interesse meldet euch bitte bei der AG Kila: <a
+    Bei Interesse meldet euch bitte <strong
+      >für eine der Infoveranstaltungen</strong
+    > mit dem Kontaktformular an oder schreibt eine Email an AG Kila: <a
       href="mailto:agkila@kilakaenguruh.de">agkila@kilakaenguruh.de</a
-    > oder benutzt das <a href="/kontakt">Kontaktformular</a>
+    >
   </p>
 
-  <!-- TODO: add more kids -->
   <!-- @ts-ignore -->
-  <form netlify>
-    <label>Termine für Infoveranstaltung <select>
-      <option>01.01.25</option>
-      <option>01.01.25</option>
-      <option>01.01.25</option>
-    </select></label>
-    <label>Geschlecht des Kindes <select><option>m</option>
-    <option>w</option>
-    <option>d</option>
-    </select></label>
+  <form name="kila-meetup" netlify>
+    <label
+      >Termine für Infoveranstaltung auswählen<select>
+        <option>01.10.2025 17 Uhr</option>
+        <option>22.10.2025 17 Uhr</option>
+        <option>29.10.25 17 Uhr</option>
+      </select>
+    </label>
 
-    <label>Name <input type="text" required /></label>
-    <label>Alter des Kindes  <input type="number" required /></label>
+    <br />
+    <label>Name eines Elternteils <input type="text" required /></label>
+
     <br />
     <label>Email <input type="email" required /></label>
     <br />
     <label>Nachricht <textarea required></textarea></label>
     <br />
+
+    <div class="children-container">
+      <h3>Kinder</h3>
+      <div id="children-list"></div>
+      <button type="button" id="add-child" class="add-child-button">+ Kind hinzufügen</button>
+    </div>
+
     <div class="footer">
-      <Button type="submit">Senden</Button>
+      <Button type="submit">Anmelden</Button>
     </div>
   </form>
 </Layout>
 
-<style>
+<style is:global>
   form {
     display: flex;
     flex-direction: column;
@@ -64,7 +71,8 @@ import Button from "../../components/Button/Button.astro"
   }
 
   input,
-  textarea, select {
+  textarea,
+  select {
     padding: 1rem;
     border: 2px solid var(--kila-accent);
   }
@@ -74,5 +82,107 @@ import Button from "../../components/Button/Button.astro"
     justify-content: center;
     align-items: center;
   }
+
+  .children-container {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .children-container h3 {
+    margin-bottom: 1rem;
+  }
+
+  .child-entry {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .child-entry select,
+  .child-entry input {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid var(--kila-accent);
+    background-color: white;
+  }
+
+  .remove-child {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .add-child-button {
+    background-color: var(--kila-accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 1rem 0;
+  }
+
+  .add-child-button:hover {
+    opacity: 0.9;
+  }
 </style>
 
+<script>
+  function createChildEntry() {
+    const childEntry = document.createElement('div');
+    childEntry.className = 'child-entry';
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+    select {
+      border: 2px solid red;
+    }
+    `
+    
+    const genderSelect = document.createElement('select');
+    genderSelect.name = 'child-gender[]';
+    genderSelect.required = true;
+    genderSelect.innerHTML = `
+      <option value="">Geschlecht auswählen</option>
+      <option value="m">männlich</option>
+      <option value="w">weiblich</option>
+      <option value="d">divers</option>
+    `;
+
+    const ageInput = document.createElement('input');
+    ageInput.type = 'date';
+    ageInput.name = 'child-age[]';
+    ageInput.placeholder = 'Geburtstag';
+    ageInput.required = true;
+    ageInput.min = '0';
+    ageInput.max = '6';
+
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'remove-child';
+    removeButton.innerHTML = '×';
+    removeButton.onclick = () => childEntry.remove();
+
+    childEntry.appendChild(genderSelect);
+    childEntry.appendChild(ageInput);
+    childEntry.appendChild(removeButton);
+
+    return childEntry;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const addChildButton = document.getElementById('add-child');
+    const childrenList = document.getElementById('children-list');
+
+    addChildButton?.addEventListener('click', () => {
+      const childEntry = createChildEntry();
+      childrenList?.appendChild(childEntry);
+    });
+  });
+</script>
