@@ -33,7 +33,9 @@ import Button from "../../components/Button/Button.astro";
     </label>
 
     <br />
-    <label>Name eines Elternteils <input type="text" name="name" required /></label>
+    <label
+      >Name eines Elternteils <input type="text" name="name" required /></label
+    >
 
     <br />
     <label>Email <input type="email" name="email" /></label>
@@ -42,9 +44,35 @@ import Button from "../../components/Button/Button.astro";
     <br />
 
     <div class="children-container">
+      <select name="child-gender_1" hidden>
+        <option value="">Geschlecht auswählen</option>
+        <option value="m">männlich</option>
+        <option value="w">weiblich</option>
+        <option value="d">divers</option>
+      </select>
+      <input type="date" name="child-age_1" hidden />
+
+      <select name="child-gender_2" hidden>
+        <option value="">Geschlecht auswählen</option>
+        <option value="m">männlich</option>
+        <option value="w">weiblich</option>
+        <option value="d">divers</option>
+      </select>
+      <input type="date" name="child-age_2" hidden />
+
+      <select name="child-gender_3" hidden>
+        <option value="">Geschlecht auswählen</option>
+        <option value="m">männlich</option>
+        <option value="w">weiblich</option>
+        <option value="d">divers</option>
+      </select>
+      <input type="date" name="child-age_3" hidden />
+
       <h3>Kinder</h3>
       <div id="children-list"></div>
-      <button type="button" id="add-child" class="add-child-button">+ Kind hinzufügen</button>
+      <button type="button" id="add-child" class="add-child-button"
+        >+ Kind hinzufügen</button
+      >
     </div>
 
     <div class="footer">
@@ -134,19 +162,22 @@ import Button from "../../components/Button/Button.astro";
 </style>
 
 <script>
-  function createChildEntry() {
-    const childEntry = document.createElement('div');
-    childEntry.className = 'child-entry';
+  let numberOfKids = 0;
 
-    const style = document.createElement('style');
+  function createChildEntry() {
+    numberOfKids ++;
+    const childEntry = document.createElement("div");
+    childEntry.className = "child-entry";
+
+    const style = document.createElement("style");
     style.innerHTML = `
     select {
       border: 2px solid red;
     }
-    `
-    
-    const genderSelect = document.createElement('select');
-    genderSelect.name = 'child-gender[]';
+    `;
+
+    const genderSelect = document.createElement("select");
+    genderSelect.name = `child-gender_${numberOfKids}`;
     genderSelect.required = true;
     genderSelect.innerHTML = `
       <option value="">Geschlecht auswählen</option>
@@ -155,18 +186,20 @@ import Button from "../../components/Button/Button.astro";
       <option value="d">divers</option>
     `;
 
-    const ageInput = document.createElement('input');
-    ageInput.type = 'date';
-    ageInput.name = 'child-age[]';
-    ageInput.placeholder = 'Geburtstag';
+    const ageInput = document.createElement("input");
+    ageInput.type = "date";
+    ageInput.name = `child-age_${numberOfKids}`;
+    ageInput.placeholder = "Geburtstag";
     ageInput.required = true;
 
-
-    const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.className = 'remove-child';
-    removeButton.innerHTML = '×';
-    removeButton.onclick = () => childEntry.remove();
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "remove-child";
+    removeButton.innerHTML = "×";
+    removeButton.onclick = () => {
+      numberOfKids--;
+      childEntry.remove()
+    };
 
     childEntry.appendChild(genderSelect);
     childEntry.appendChild(ageInput);
@@ -175,11 +208,11 @@ import Button from "../../components/Button/Button.astro";
     return childEntry;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const addChildButton = document.getElementById('add-child');
-    const childrenList = document.getElementById('children-list');
+  document.addEventListener("DOMContentLoaded", () => {
+    const addChildButton = document.getElementById("add-child");
+    const childrenList = document.getElementById("children-list");
 
-    addChildButton?.addEventListener('click', () => {
+    addChildButton?.addEventListener("click", () => {
       const childEntry = createChildEntry();
       childrenList?.appendChild(childEntry);
     });
