@@ -25,20 +25,20 @@ import Button from "../../components/Button/Button.astro";
   <!-- @ts-ignore -->
   <form name="kila-meetup" netlify data-netlify="true">
     <label
-      >Termine für Infoveranstaltung auswählen<select>
-        <option>01.10.2025 17 Uhr</option>
-        <option>22.10.2025 17 Uhr</option>
-        <option>29.10.25 17 Uhr</option>
+      >Termine für Infoveranstaltung auswählen<select name="datum">
+        <option value="01.01.2025">01.10.2025 17 Uhr</option>
+        <option value="22.10.2025">22.10.2025 17 Uhr</option>
+        <option value="29.10.2025">29.10.25 17 Uhr</option>
       </select>
     </label>
 
     <br />
-    <label>Name eines Elternteils <input type="text" required /></label>
+    <label>Name eines Elternteils <input type="text" name="name" required /></label>
 
     <br />
-    <label>Email <input type="email" required /></label>
+    <label>Email <input type="email" name="email" /></label>
     <br />
-    <label>Nachricht <textarea required></textarea></label>
+    <label>Nachricht <textarea name="message" required></textarea></label>
     <br />
 
     <div class="children-container">
