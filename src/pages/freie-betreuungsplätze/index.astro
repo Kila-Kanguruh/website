@@ -23,7 +23,7 @@ import Button from "../../components/Button/Button.astro";
   </p>
 
   <!-- @ts-ignore -->
-  <form name="kila-meetup" netlify>
+  <form name="kila-meetup" netlify data-netlify="true">
     <label
       >Termine für Infoveranstaltung auswählen<select>
         <option>01.10.2025 17 Uhr</option>
@@ -160,7 +160,7 @@ import Button from "../../components/Button/Button.astro";
     ageInput.name = 'child-age[]';
     ageInput.placeholder = 'Geburtstag';
     ageInput.required = true;
-    
+
 
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
