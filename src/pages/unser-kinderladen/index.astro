@@ -1,6 +1,7 @@
 ---
 import GraphicTeddy from "../../components/graphics/GraphicTeddy/GraphicTeddy.astro";
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
+import ImageSlider from "../../components/ImageSlider/ImageSlider.astro";
 import Layout from "../../layouts/Layout.astro";
 ---
 
@@ -240,6 +241,23 @@ import Layout from "../../layouts/Layout.astro";
 
     <section id="rooms" class="content-section">
       <h2>Räume</h2>
+      <ImageSlider images={[
+        {src: '/images/IMG_8879.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8887.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8906.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8879.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8920.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8981.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8983.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_8984.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9017.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9019.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9023.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9066.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9069.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9072.jpg', alt: 'Kila 1'},
+        {src: '/images/IMG_9088.jpg', alt: 'Kila 1'},
+      ]}/>
       <p>
         Der Kinderladen Känguruh e.V. verfügt über großzügige Funktionsräume,
         welche sich auf zwei Etagen befinden. Jeder Raum hat seine Funktion
