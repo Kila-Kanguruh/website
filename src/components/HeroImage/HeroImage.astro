@@ -5,8 +5,6 @@ interface Props {
 
 const { text } = Astro.props;
 const hasGraphic = Astro.slots.default;
-
-console.log(hasGraphic);
 ---
 
 <section class=`hero-image ${!hasGraphic && 'no-graphic'}`>
