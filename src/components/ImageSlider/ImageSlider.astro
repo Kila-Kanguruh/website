@@ -76,9 +76,10 @@ const imagesJson = JSON.stringify(images);
     position: relative;
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 2rem auto;
     overflow: hidden;
     touch-action: pan-y pinch-zoom;
+    padding-bottom: 1rem;
   }
   .slider-track {
     display: flex;
@@ -287,7 +288,6 @@ const imagesJson = JSON.stringify(images);
         images = [];
       }
     }
-    console.log("Client images array:", images);
 
     // DOM elements
     let track: HTMLElement | null = document.querySelector(".slider-track");
@@ -412,8 +412,7 @@ const imagesJson = JSON.stringify(images);
 
     function updateOverlayImage() {
       const img = images[overlayIndex];
-      console.log("Overlay image:", img);
-      console.log("Overlay image element:", overlayImg);
+
       if (!img || !overlayImg) return;
       overlayImg.src = img.src;
       overlayImg.alt = img.alt;
