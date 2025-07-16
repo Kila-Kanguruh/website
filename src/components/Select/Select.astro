@@ -1,0 +1,44 @@
+---
+interface Props {
+  disabled?: boolean;
+  class?: string;
+  id?: string;
+  name: string;
+  hidden?: boolean;
+  required?: boolean;
+}
+const { disabled, class: className, id, name, hidden, required } = Astro.props;
+---
+
+<select
+  disabled={disabled}
+  class:list={className}
+  id={id}
+  name={name}
+  hidden={hidden}
+  required={required}
+>
+  <slot />
+</select>
+
+<style is:global>
+  select {
+    border: solid 3px var(--kila-accent);
+    padding: 1rem;
+    font-size: 20px;
+    font-family: "Fredoka", sans-serif;
+    outline: none;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  select:active,
+  select:focus-within {
+    border: 3px solid var(--kila-accent-dark);
+  }
+
+  select:invalid {
+    border: 3px solid red;
+  }
+</style>

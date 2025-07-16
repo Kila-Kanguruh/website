@@ -5,6 +5,8 @@ import Layout from "../../layouts/Layout.astro";
 import Banner from "../../components/Banner/Banner.astro";
 import Button from "../../components/Button/Button.astro";
 import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
+import Input from "../../components/Input/Input.astro";
+import Select from "../../components/Select/Select.astro";
 ---
 
 <Layout title="freie-betreuungsplätze">
@@ -38,50 +40,48 @@ import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
   <!-- @ts-ignore -->
   <form name="kila-meetup" netlify data-netlify="true">
     <label
-      >Termine für Infoveranstaltung auswählen<select name="datum">
+      >Termine für Infoveranstaltung auswählen *<Select name="datum">
         <option value="01.01.2025">01.10.2025 17 Uhr</option>
         <option value="22.10.2025">22.10.2025 17 Uhr</option>
         <option value="29.10.2025">29.10.25 17 Uhr</option>
-      </select>
+      </Select>
     </label>
 
     <br />
-    <label
-      >Name eines Elternteils <input type="text" name="name" required /></label
-    >
+    <label>Name eines Elternteils *<Input name="name" required /></label>
 
     <br />
-    <label>Email <input type="email" name="email" /></label>
+    <label>Email *<Input type="email" name="email" /></label>
     <br />
-    <label>Nachricht <textarea name="message" required></textarea></label>
+    <label>Nachricht *<Input type="textarea" name="message" required /></label>
     <br />
 
     <div class="children-container">
-      <select name="child-gender_1" hidden>
+      <Select name="child-gender_1" hidden>
         <option value="">Geschlecht auswählen</option>
         <option value="m">männlich</option>
         <option value="w">weiblich</option>
         <option value="d">divers</option>
-      </select>
+      </Select>
       <input type="date" name="child-age_1" hidden />
 
-      <select name="child-gender_2" hidden>
+      <Select name="child-gender_2" hidden>
         <option value="">Geschlecht auswählen</option>
         <option value="m">männlich</option>
         <option value="w">weiblich</option>
         <option value="d">divers</option>
-      </select>
+      </Select>
       <input type="date" name="child-age_2" hidden />
 
-      <select name="child-gender_3" hidden>
+      <Select name="child-gender_3" hidden>
         <option value="">Geschlecht auswählen</option>
         <option value="m">männlich</option>
         <option value="w">weiblich</option>
         <option value="d">divers</option>
-      </select>
+      </Select>
       <input type="date" name="child-age_3" hidden />
 
-      <h3>Kinder</h3>
+      <h3>Kinder *</h3>
       <div id="children-list"></div>
       <Button id="add-child">+ Kind hinzufügen</Button>
     </div>
@@ -89,6 +89,7 @@ import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
     <div class="footer">
       <Button type="submit">Anmelden</Button>
     </div>
+    <small>Die mit * markierten Felder sind Pflichtfelder.</small>
   </form>
 </Layout>
 
@@ -109,11 +110,9 @@ import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
     background-color: white;
   }
 
-  input,
-  textarea,
-  select {
-    padding: 1rem;
-    border: 2px solid var(--kila-accent);
+  small {
+    margin-top: 1rem;
+    text-align: center;
   }
 
   form .footer {
@@ -134,35 +133,69 @@ import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
   .child-entry {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     align-items: center;
     text-align: center;
+  }
+
+  @media screen and (max-width: 650px) {
+    .child-entry {
+      flex-direction: column;
+    }
   }
 
   .child-entry select,
   .child-entry input {
     flex: 1;
     padding: 1rem;
-    border: 2px solid var(--kila-accent);
+    border: 3px solid var(--kila-accent);
     background-color: white;
   }
 
+  .child-entry select:invalid,
+  .child-entry input:invalid {
+    border: 3px solid red;
+  }
   .remove-child {
     background: none;
-    border: none;
     color: red;
     cursor: pointer;
     font-size: 1.5rem;
-    padding: 0.5rem;
+    padding: 0.8rem;
     margin-left: 0.5rem;
+    border: 3px solid red;
+    flex-grow: 0.1;
+  }
+
+  @media screen and (max-width: 650px) {
+    .child-entry input {
+      width: calc(100% - 2rem);
+    }
+    .child-entry select {
+      width: 100%;
+    }
+
+    .remove-child {
+      margin-left: none;
+      padding: 0.8rem 2rem;
+    }
   }
 </style>
 
 <script>
   let numberOfKids = 0;
 
+  function toggleButtonDisabled() {
+    const addChildBtn = document.getElementById("add-child");
+
+    if (addChildBtn && addChildBtn instanceof HTMLButtonElement) {
+      addChildBtn.disabled = numberOfKids === 3;
+    }
+  }
+
   function createChildEntry() {
     numberOfKids++;
+    toggleButtonDisabled();
     const childEntry = document.createElement("div");
     childEntry.className = "child-entry";
 
@@ -195,6 +228,7 @@ import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
     removeButton.innerHTML = "×";
     removeButton.onclick = () => {
       numberOfKids--;
+      toggleButtonDisabled();
       childEntry.remove();
     };
 

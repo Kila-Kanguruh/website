@@ -1,0 +1,65 @@
+---
+interface Props {
+  type?: "text" | "email" | "textarea";
+  disabled?: boolean;
+  class?: string;
+  id?: string;
+  name: string;
+  required?: boolean;
+}
+const {
+  type = "text",
+  disabled,
+  class: className,
+  id,
+  name,
+  required,
+} = Astro.props;
+---
+
+{
+  type === "textarea" ? (
+    <textarea
+      disabled={disabled}
+      class:list={className}
+      id={id}
+      name={name}
+      required={required}
+    />
+  ) : (
+    <input
+      type={type}
+      disabled={disabled}
+      class:list={className}
+      id={id}
+      name={name}
+      required={required}
+    />
+  )
+}
+
+<style is:global>
+  input,
+  textarea {
+    border: solid 3px var(--kila-accent);
+    padding: 1rem;
+    font-size: 20px;
+    font-family: "Fredoka", sans-serif;
+    outline: none;
+    border-radius: 3px;
+  }
+
+  textarea:active,
+  textarea:focus-within,
+  input:active,
+  input:focus-within {
+    border: 3px solid var(--kila-accent-dark);
+  }
+
+  textarea:active:invalid,
+  textarea:focus-within:invalid,
+  input:active:invalid,
+  input:focus-within:invalid {
+    border: 3px solid red;
+  }
+</style>
