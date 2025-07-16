@@ -1,42 +1,46 @@
 ---
 interface Props {
-  type?: 'submit' | 'reset' | 'button';
+  type?: "submit" | "reset" | "button";
   disabled?: boolean;
   maxWidth?: boolean;
   cta?: boolean;
   class?: string;
+  id?: string;
   href?: string;
 }
 const {
-  type = 'button',
+  type = "button",
   disabled,
   maxWidth,
   cta,
   class: className,
+  id,
   href,
 } = Astro.props;
-import './../../styles/colors.css';
+import "./../../styles/colors.css";
 ---
 
 {
   href ? (
     <a
       href={href}
+      id={id}
       class:list={[
-        'button',
+        "button",
         className,
-        maxWidth && 'max-width',
-        cta && 'cta',
-        disabled && 'disabled',
+        maxWidth && "max-width",
+        cta && "cta",
+        disabled && "disabled",
       ]}
     >
       <slot />
     </a>
   ) : (
     <button
+      id={id}
       type={type}
       {disabled}
-      class:list={['button', className, maxWidth && 'max-width', cta && 'cta']}
+      class:list={["button", className, maxWidth && "max-width", cta && "cta"]}
     >
       <slot />
     </button>
@@ -50,7 +54,7 @@ import './../../styles/colors.css';
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    font-family: 'Fredoka', sans-serifk;
+    font-family: "Fredoka", sans-serifk;
     font-size: 1.3rem;
     outline: none;
     width: fit-content;

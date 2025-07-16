@@ -4,15 +4,28 @@ import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
 import Banner from "../../components/Banner/Banner.astro";
 import Button from "../../components/Button/Button.astro";
+import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
 ---
 
 <Layout title="freie-betreuungsplätze">
   <HeroImage slot="hero" text="Freie Betreuungsplätze">
     <GraphicKidPlay />
   </HeroImage>
-  <Banner title="Wir suchen aktuell 8 Kinder"
-    >Jahrgang 07.2021 bis 02.2025
+
+  <h2>Für das Schuljahr 2025/2026:</h2>
+  <Banner title="Wir suchen 2 Kinder ab November!">
+    <IconHeart slot="icon" />
+    Wenn dein Kind ab November 2025 mindestens 18 Monate alt ist, melde dich bei
+    uns!
+    <br />
+    <br />
+    <Button href="/kontakt">Melde dich!</Button>
   </Banner>
+
+  <br />
+
+  <h2>Für das Schuljahr 2026/2027:</h2>
+  <Banner title="Wir suchen 8 Kinder!">Jahrgang 07.2021 bis 02.2025 </Banner>
 
   <p>
     Bei Interesse meldet euch bitte <strong
@@ -70,9 +83,7 @@ import Button from "../../components/Button/Button.astro";
 
       <h3>Kinder</h3>
       <div id="children-list"></div>
-      <button type="button" id="add-child" class="add-child-button"
-        >+ Kind hinzufügen</button
-      >
+      <Button id="add-child">+ Kind hinzufügen</Button>
     </div>
 
     <div class="footer">
@@ -145,27 +156,13 @@ import Button from "../../components/Button/Button.astro";
     padding: 0.5rem;
     margin-left: 0.5rem;
   }
-
-  .add-child-button {
-    background-color: var(--kila-accent);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 1rem 0;
-  }
-
-  .add-child-button:hover {
-    opacity: 0.9;
-  }
 </style>
 
 <script>
   let numberOfKids = 0;
 
   function createChildEntry() {
-    numberOfKids ++;
+    numberOfKids++;
     const childEntry = document.createElement("div");
     childEntry.className = "child-entry";
 
@@ -198,7 +195,7 @@ import Button from "../../components/Button/Button.astro";
     removeButton.innerHTML = "×";
     removeButton.onclick = () => {
       numberOfKids--;
-      childEntry.remove()
+      childEntry.remove();
     };
 
     childEntry.appendChild(genderSelect);
