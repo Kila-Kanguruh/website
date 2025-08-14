@@ -26,6 +26,22 @@ import Button from "../Button/Button.astro";
     <div class="slide">
       <div class="slide-content">
         <div class="slide-graphic">
+          <img src="/graphics/kindertreff_graphic.png" alt="Kangoroo" />
+        </div>
+        <div class="slide-text">
+          <h2>Entdecke den Kindertreff!</h2>
+          <h3>Ab den 18. August 2025 an einzelnen Tagen wieder da!</h3>
+          <Button cta href="/kindertreff" class="hero-button"
+            >Mehr erfahren</Button
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="slide-content">
+        <div class="slide-graphic">
           <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
         </div>
         <div class="slide-text">
@@ -59,6 +75,12 @@ import Button from "../Button/Button.astro";
     @media screen and (max-width: 1200px) {
       font-size: 3rem !important;
     }
+  }
+
+  .slide-text h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
   }
 
   .slides-container {
