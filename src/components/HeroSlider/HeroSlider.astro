@@ -55,9 +55,7 @@ import Button from "../Button/Button.astro";
   </div>
 
   <div class="slider-controls">
-    <button class="prev-btn" aria-label="Previous slide">←</button>
     <div class="dots"></div>
-    <button class="next-btn" aria-label="Next slide">→</button>
   </div>
 </div>
 
@@ -158,15 +156,6 @@ import Button from "../Button/Button.astro";
     padding: 1rem 1rem 0;
   }
 
-  .prev-btn,
-  .next-btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    z-index: 2;
-    display: none;
-  }
-
   .dots {
     display: flex;
     gap: 0.5rem;
@@ -200,11 +189,7 @@ import Button from "../Button/Button.astro";
 
     .slider-controls {
       bottom: 0.5rem;
-    }
-
-    .prev-btn,
-    .next-btn {
-      padding: 0.25rem 0.75rem;
+      gap: 0.5rem;
     }
   }
 
@@ -216,6 +201,11 @@ import Button from "../Button/Button.astro";
     .slide-text {
       min-width: 200px;
     }
+
+    .slider-controls {
+      gap: 0.25rem;
+      padding: 0.5rem 0.5rem 0;
+    }
   }
 </style>
 
@@ -224,23 +214,23 @@ import Button from "../Button/Button.astro";
     currentSlide: number;
     slidesContainer: HTMLElement | null;
     slides: NodeListOf<HTMLElement>;
-    prevBtn: HTMLElement | null;
-    nextBtn: HTMLElement | null;
     dotsContainer: HTMLElement | null;
+    autoPlayInterval: number | null;
+    isAutoPlaying: boolean;
 
     constructor() {
       this.currentSlide = 0;
       this.slidesContainer = document.querySelector(".slides-container");
       this.slides = document.querySelectorAll(".slide");
-      this.prevBtn = document.querySelector(".prev-btn");
-      this.nextBtn = document.querySelector(".next-btn");
       this.dotsContainer = document.querySelector(".dots");
+      this.autoPlayInterval = null;
+      this.isAutoPlaying = true;
 
       this.init();
     }
 
     init() {
-      if (!this.dotsContainer || !this.prevBtn || !this.nextBtn) {
+      if (!this.dotsContainer) {
         console.error("Slider elements not found.");
         return;
       }
@@ -255,10 +245,31 @@ import Button from "../Button/Button.astro";
         this.dotsContainer?.appendChild(dot);
       });
 
-      // Add event listeners
-      this.prevBtn.addEventListener("click", () => this.prevSlide());
-      this.nextBtn.addEventListener("click", () => this.nextSlide());
       this.initTouch();
+      this.initAutoPlayControls();
+
+      // Start auto-play
+      this.startAutoPlay();
+    }
+
+    initAutoPlayControls() {
+      // Pause auto-play on hover
+      this.slidesContainer?.addEventListener("mouseenter", () =>
+        this.pauseAutoPlay()
+      );
+      this.slidesContainer?.addEventListener("mouseleave", () =>
+        this.resumeAutoPlay()
+      );
+
+      // Pause auto-play when clicking on dots
+      const dots = document.querySelectorAll(".dot");
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          this.pauseAutoPlay();
+          // Resume auto-play after a delay
+          setTimeout(() => this.resumeAutoPlay(), 3000);
+        });
+      });
     }
 
     initTouch() {
@@ -269,6 +280,7 @@ import Button from "../Button/Button.astro";
       this.slidesContainer?.addEventListener("touchstart", (event) => {
         touchStartX = event.touches[0].clientX;
         touchStartY = event.touches[0].clientY;
+        this.pauseAutoPlay();
       });
       this.slidesContainer?.addEventListener("touchend", (event) => {
         touchEndX = event.changedTouches[0].clientX;
@@ -286,6 +298,9 @@ import Button from "../Button/Button.astro";
             this.nextSlide();
           }
         }
+
+        // Resume auto-play after touch interaction
+        setTimeout(() => this.resumeAutoPlay(), 3000);
       });
     }
 
@@ -304,6 +319,40 @@ import Button from "../Button/Button.astro";
       });
     }
 
+    goToSlide(index: number) {
+      this.currentSlide = index;
+      this.updateSlidePosition();
+    }
+
+    startAutoPlay(interval = 7000) {
+      if (this.autoPlayInterval) {
+        clearInterval(this.autoPlayInterval);
+      }
+
+      this.isAutoPlaying = true;
+      this.autoPlayInterval = setInterval(() => {
+        if (this.isAutoPlaying) {
+          this.nextSlide();
+        }
+      }, interval);
+    }
+
+    pauseAutoPlay() {
+      this.isAutoPlaying = false;
+    }
+
+    resumeAutoPlay() {
+      this.isAutoPlaying = true;
+    }
+
+    stopAutoPlay() {
+      if (this.autoPlayInterval) {
+        clearInterval(this.autoPlayInterval);
+        this.autoPlayInterval = null;
+      }
+      this.isAutoPlaying = false;
+    }
+
     nextSlide() {
       this.currentSlide = (this.currentSlide + 1) % this.slides.length;
       this.updateSlidePosition();
@@ -313,15 +362,6 @@ import Button from "../Button/Button.astro";
       this.currentSlide =
         (this.currentSlide - 1 + this.slides.length) % this.slides.length;
       this.updateSlidePosition();
-    }
-
-    goToSlide(index: number) {
-      this.currentSlide = index;
-      this.updateSlidePosition();
-    }
-
-    startAutoPlay(interval = 5000) {
-      setInterval(() => this.nextSlide(), interval);
     }
   }
 
