@@ -29,17 +29,12 @@ jobs:
         run: pnpm build
 
       - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: sftp
-          port: ${{ secrets.SFTP_PORT }}              # set to 22 in secrets if unsure
-          local-dir: dist/
-          server-dir: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html/
-          exclude: |
-            **/.git*
-            **/.github*
-            **/node_modules/**
-            **/src/**
+          port: ${{ secrets.SFTP_PORT }}          # default 22
+          local_path: dist/*
+          remote_path: ${{ secrets.SFTP_DEST }}   # e.g. /var/www/html/
+          sftp_only: true
