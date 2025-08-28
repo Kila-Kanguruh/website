@@ -28,19 +28,12 @@ jobs:
       - name: Build Astro
         run: pnpm build
 
-      - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy to Server
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_SERVER }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: ftps
-          port: 21              # set to 22 in secrets if unsure
-          local-dir: dist/
-          server-dir: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html/
-          security: loose
-          exclude: |
-            **/.git*
-            **/.github*
-            **/node_modules/**
-            **/src/**
+          local_path: './dist/*'
+          remote_path: ${{ secrets.SFTP_DEST }}
+          sftpArgs: '-o ConnectTimeout=5'
