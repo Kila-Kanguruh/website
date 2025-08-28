@@ -1,0 +1,46 @@
+name: Build and Deploy (Astro → SFTP)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build Astro
+        run: npm run build
+        env:
+          # Add any needed env vars for your build here, e.g.:
+          # PUBLIC_API_URL: ${{ secrets.PUBLIC_API_URL }}
+          NODE_ENV: production
+
+      - name: Deploy via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          protocol: sftp
+          port: ${{ secrets.SFTP_PORT }}              # set to 22 in secrets if unsure
+          local-dir: dist/
+          server-dir: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html/
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/src/**
