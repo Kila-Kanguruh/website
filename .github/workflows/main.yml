@@ -27,13 +27,13 @@ jobs:
         
       - name: Build Astro
         run: pnpm build
-
+          
       - name: Deploy to Server
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          server: www631.your-server.de
+          server: "www631.your-server.de"
           port: 22
-          local_path: './dist/*'
-          remote_path: '/public_html/'
+          local_path: "./dist/*"
+          remote_path: "/public_html/"
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
