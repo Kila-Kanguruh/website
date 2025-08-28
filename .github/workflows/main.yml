@@ -31,9 +31,9 @@ jobs:
       - name: Deploy to Server
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          username: ${{ secrets.SFTP_USERNAME }}
-          server: ${{ secrets.SFTP_SERVER }}
-          password: ${{ secrets.SFTP_PASSWORD }}
+          server: www631.your-server.de
+          port: 22
           local_path: './dist/*'
-          remote_path: ${{ secrets.SFTP_DEST }}
-          sftpArgs: '-o ConnectTimeout=5'
+          remote_path: '/public_html/'
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
