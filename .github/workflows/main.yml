@@ -28,13 +28,18 @@ jobs:
       - name: Build Astro
         run: pnpm build
 
-      - name: Deploy via SFTP (incremental)
-        uses: appleboy/sftp-action@v0.1.7
+      - name: Deploy via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SFTP_SERVER }}
+          server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: ${{ secrets.SFTP_PORT }}
-          source: "dist/*"
-          target: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html
-          overwrite: true
+          protocol: ftps
+          port: 21              # set to 22 in secrets if unsure
+          local-dir: dist/
+          server-dir: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html/
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/src/**
