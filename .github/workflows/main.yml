@@ -38,6 +38,7 @@ jobs:
           port: 21              # set to 22 in secrets if unsure
           local-dir: dist/
           server-dir: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html/
+          security: loose
           exclude: |
             **/.git*
             **/.github*
