@@ -28,13 +28,13 @@ jobs:
       - name: Build Astro
         run: pnpm build
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy via SFTP (incremental)
+        uses: appleboy/sftp-action@v0.1.7
         with:
-          server: ${{ secrets.SFTP_SERVER }}
+          host: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: ${{ secrets.SFTP_PORT }}          # default 22
-          local_path: dist/*
-          remote_path: ${{ secrets.SFTP_DEST }}   # e.g. /var/www/html/
-          sftp_only: true
+          port: ${{ secrets.SFTP_PORT }}
+          source: "dist/*"
+          target: ${{ secrets.SFTP_DEST }}        # e.g. /var/www/html
+          overwrite: true
