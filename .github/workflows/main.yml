@@ -28,12 +28,18 @@ jobs:
       - name: Build Astro
         run: pnpm build
         
-      - name: "Deploy"
-        uses: milanmk/actions-file-deployer@master
+      - name: Deploy via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          remote-protocol: "sftp"
-          remote-host: "www631.your-server.de"
-          remote-port: 22
-          remote-path: "/public_html/"
-          remote-user: ${{ secrets.SFTP_USERNAME }}
-          remote-password: ${{ secrets.SFTP_PASSWORD }}
+          server: "www631.your-server.de"
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          protocol: ftps
+          port: 21              # set to 22 in secrets if unsure
+          local-dir: dist/
+          server-dir: "public_html/"      # e.g. /var/www/html/
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/src/**
