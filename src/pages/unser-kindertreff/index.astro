@@ -4,7 +4,7 @@ import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="Kindertreff">
+<Layout title="Kindertreff" instagram="https://www.instagram.com/kindertreffkanguruh/">
   <HeroImage slot="hero" text="Kindertreff" />
   <p>
     <img
@@ -15,6 +15,7 @@ import Layout from "../../layouts/Layout.astro";
     />
   </p>
   <ul>
+    <li>ab sofort bis Ende des Jahres: jeden Montag und Donnerstag 14 - 18 Uhr geöffnet </li>
     <li>auf der Böhmischen Straße 26, im Erdgeschoss hinter dem Spielplatz</li>
     <li>Für Kinder von 6-14 Jahren,</li>
   </ul>
@@ -75,11 +76,34 @@ import Layout from "../../layouts/Layout.astro";
       Familien
     </li>
   </ul>
+
+  <h2>Förderung</h2>
+  <div class="sos">
+    <p>Gefördert durch: SOS Kinderdörfer „Wir springen ein!“</p>
+    <a href="https://www.sos-kinderdoerfer.de/informieren/aktuelles/news/wir-springen-ein">
+      <img
+        loading="lazy"
+        src="/images/sos-kinderdoerfer.png"
+        alt="Logo SOS Kinderdörfer"
+      />
+    </a>
+  </div>
 </Layout>
 
 <style>
   img,
   iframe {
     width: 100%;
+    border-radius: 16px;
+  }
+
+  .sos {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .sos img {
+    width: 200px;
   }
 </style>

@@ -5,38 +5,37 @@ import Input from "../../components/Input/Input.astro";
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="kontakt">
+<Layout title="kontakt" instagram="https://www.instagram.com/kila_kaenguruh/">
   <HeroImage slot="hero" text="Kontakt" />
 
-  <!-- The netlify attribute is not recognized, can be ignored -->
-  <!-- @ts-ignore -->
-  <form netlify name="kila-message" data-netlify="true">
-    <label>Name * <Input type="text" name="name" required /></label>
-    <br />
-    <label>Email * <Input type="email" name="email" required /></label>
-    <br />
-    <label>Nachricht * <Input type="textarea" name="message" required /></label>
-    <br />
-    <small>Die mit * markierten Felder sind Pflichtfelder.</small>
-    <div class="footer">
-      <Button type="submit">Senden</Button>
-    </div>
-  </form>
-
-  <h2>Öffnungszeiten:</h2>
+  <h2>Kinderladen</h2>
   <p>
-    Der Kinderladen ist Montag bis Freitag von 07:30 Uhr bis 17 Uhr geöffnet.
-  </p>
-
-  <h2>Für allgemeine Anfragen:</h2>
-  <p>
-    <strong>Kinderladen</strong><br />
-    Kinderladen Känguruh e.V.<br />
+    <strong>Kinderladen Känguruh e.V.</strong><br />
     Böhmische Str. 26, 01099 Dresden<br />
     Tel.: 0351/ 80 20 196<br />
     Büro & Fax: 0351/ 80 10 621<br />
     <a href="mailto:mail@kilakaenguruh.de">mail@kilakaenguruh.de</a>
   </p>
+
+  <p>
+    <strong>Öffnungszeiten</strong><br />
+    Der Kinderladen ist Montag bis Freitag von 07:30 Uhr bis 17 Uhr geöffnet.
+  </p>
+
+  <h2>Kindertreff</h2>
+  <p>
+    <strong>Kindertreff</strong><br />
+    Böhmische Str. 26, 01099 Dresden<br />
+    Tel.: 0176 71238715<br />
+    Büro & Fax: 0351/ 80 10 621<br />
+    <a href="mailto:kitreff.kaenguruh@gmx.de">kitreff.kaenguruh@gmx.de</a>
+  </p>
+    
+  <p>
+    <strong>Öffnungszeiten</strong><br />
+    Der Kindertreff ist jeden Montag und Donnerstag von 14 - 18 Uhr geöffnet.
+  </p>
+
 </Layout>
 
 <style>
