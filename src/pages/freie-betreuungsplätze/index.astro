@@ -9,12 +9,15 @@ import Input from "../../components/Input/Input.astro";
 import Select from "../../components/Select/Select.astro";
 ---
 
-<Layout title="freie-betreuungsplätze" instagram="https://www.instagram.com/kila_kaenguruh/">
+<Layout
+  title="freie-betreuungsplätze"
+  instagram="https://www.instagram.com/kila_kaenguruh/"
+>
   <HeroImage slot="hero" text="Freie Betreuungsplätze">
     <GraphicKidPlay />
   </HeroImage>
 
-  <h2>Für das Schuljahr 2025/2026:</h2>
+  <!-- <h2>Für das Schuljahr 2025/2026:</h2>
   <Banner title="Wir suchen 2 Kinder ab November!">
     <IconHeart slot="icon" />
     Wenn dein Kind ab November 2025 mindestens 18 Monate alt ist, melde dich bei
@@ -24,7 +27,7 @@ import Select from "../../components/Select/Select.astro";
     <Button href="/kontakt">Melde dich!</Button>
   </Banner>
 
-  <br />
+  <br /> -->
 
   <h2>Für das Schuljahr 2026/2027:</h2>
   <Banner title="Wir suchen 8 Kinder!">Jahrgang 07.2021 bis 02.2025 </Banner>
@@ -36,61 +39,6 @@ import Select from "../../components/Select/Select.astro";
       href="mailto:agkila@kilakaenguruh.de">agkila@kilakaenguruh.de</a
     >
   </p>
-
-  <!-- @ts-ignore -->
-  <form name="kila-meetup" netlify data-netlify="true">
-    <label
-      >Termine für Infoveranstaltung auswählen *<Select name="datum">
-        <option value="01.01.2025">01.10.2025 17 Uhr</option>
-        <option value="22.10.2025">22.10.2025 17 Uhr</option>
-        <option value="29.10.2025">29.10.25 17 Uhr</option>
-      </Select>
-    </label>
-
-    <br />
-    <label>Name eines Elternteils *<Input name="name" required /></label>
-
-    <br />
-    <label>Email *<Input type="email" name="email" /></label>
-    <br />
-    <label>Nachricht *<Input type="textarea" name="message" required /></label>
-    <br />
-
-    <div class="children-container">
-      <Select name="child-gender_1" hidden>
-        <option value="">Geschlecht auswählen</option>
-        <option value="m">männlich</option>
-        <option value="w">weiblich</option>
-        <option value="d">divers</option>
-      </Select>
-      <input type="date" name="child-age_1" hidden />
-
-      <Select name="child-gender_2" hidden>
-        <option value="">Geschlecht auswählen</option>
-        <option value="m">männlich</option>
-        <option value="w">weiblich</option>
-        <option value="d">divers</option>
-      </Select>
-      <input type="date" name="child-age_2" hidden />
-
-      <Select name="child-gender_3" hidden>
-        <option value="">Geschlecht auswählen</option>
-        <option value="m">männlich</option>
-        <option value="w">weiblich</option>
-        <option value="d">divers</option>
-      </Select>
-      <input type="date" name="child-age_3" hidden />
-
-      <h3>Kinder *</h3>
-      <div id="children-list"></div>
-      <Button id="add-child">+ Kind hinzufügen</Button>
-    </div>
-
-    <div class="footer">
-      <Button type="submit">Anmelden</Button>
-    </div>
-    <small>Die mit * markierten Felder sind Pflichtfelder.</small>
-  </form>
 </Layout>
 
 <style is:global>
