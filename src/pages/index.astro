@@ -2,52 +2,48 @@
 import Banner from "../components/Banner/Banner.astro";
 import Card from "../components/Card/Card.astro";
 import Divider from "../components/Divider/Divider.astro";
-import GraphicContact from "../components/graphics/GraphicContact/GraphicContact.astro";
 import GraphicJump from "../components/graphics/GraphicJump/GraphicJump.astro";
 import GraphicTeddy from "../components/graphics/GraphicTeddy/GraphicTeddy.astro";
 import HeroSlider from "../components/HeroSlider/HeroSlider.astro";
 import IconHeart from "../components/icons/IconHeart/IconHeart.astro";
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button/Button.astro";
+import { getCollection } from "astro:content";
+import type { home } from "../content-collections/home";
+import InfoCard from "../components/InfoCard.astro";
+import Callout from "../components/Callout.astro";
+
+const homeItems = await getCollection("home");
+const {
+  title1,
+  title2,
+  title3,
+  title4,
+  callout1,
+  callout2,
+  info1,
+  info2,
+  info3,
+  info4,
+} = homeItems[0].data.home;
 ---
 
-<Layout title="Kinderladen Känguruh" instagram="https://www.instagram.com/kila_kaenguruh/">
+<Layout
+  title="Kinderladen Känguruh"
+  instagram="https://www.instagram.com/kila_kaenguruh/"
+>
   <HeroSlider slot="hero" />
   <div class="wave">
     <Divider type="curly" />
   </div>
-  <Banner title="Wir suchen 2 BFD-Stellen ab August 2025!">
-    <IconHeart slot="icon" />
-    <Button href="/kontakt">Bewirb dich jetzt!</Button>
-  </Banner>
-  <Card
-    title="Nicht Kinder haben, sondern mit Kindern leben"
-    text="Der Kinderladen Känguruh e. V. ist seit 1990 eine Elterninitiative und freier Träger der Jugendhilfe. 5 Pädagog:innen betreuen 26 Kinder (ca. 1,5 Jahre bis Schuleintritt). Im Mittelpunkt steht das Kind mit seinen individuellen Bedürfnissen."
-    buttonText="Weiterlesen"
-    imagePosition="left"
-    buttonLink="/unser-kinderladen"
-    ><img
-      src="/graphics/True Friends Illustration 1.svg "
-      slot="image"
-    /></Card
-  >
-  <Card
-    title="Miteinander lernen, wachsen, spielen."
-    text="Im Kinderladen gestalten wir den Alltag gemeinsam mit den Kindern. Ihre Themen, ihr Spiel und ihre Fragen stehen im Mittelpunkt. Bildung beginnt für uns im Miteinander – mit Zeit, Vertrauen und offenen Ohren."
-    buttonText="Mehr über unsere Pädagogik"
-    buttonLink="/unser-kinderladen#concept"
-    imagePosition="right"
-  >
-    <GraphicJump slot="image" /></Card
-  >
-  <Card
-    title="Lust auf Kennenlernen?"
-    text="Du suchst einen liebevollen Ort und einer familiären Atmosphäre für dein Kind? Dann melde dich gern bei uns! Wir freuen uns, euch kennenzulernen und gemeinsam herauszufinden, ob unser Kinderladen zu euch passt."
-    buttonText="Kontakt aufnehmen"
-    buttonLink="/kontakt"
-  >
-    <GraphicTeddy slot="image" /></Card
-  >
+
+  <Callout callout={callout1} />
+  <Callout callout={callout2} />
+
+  <InfoCard info={info1} />
+  <InfoCard info={info2} />
+  <InfoCard info={info3} />
+  <InfoCard info={info4} />
 
   <Divider type="wave" />
 </Layout>

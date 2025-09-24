@@ -1,0 +1,22 @@
+---
+import type { Callout } from "../content-collections/home";
+import Banner from "./Banner/Banner.astro";
+import Button from "./Button/Button.astro";
+import IconHeart from "./icons/IconHeart/IconHeart.astro";
+
+type Props = {
+  callout: Callout;
+};
+
+const { show, title, content, image, link } = Astro.props.callout;
+---
+
+{
+  show && (
+    <Banner title={title ?? ""}>
+      <IconHeart slot="icon" />
+      {content && <p class="card-text">{content}</p>}
+      {link && <Button href={link.url ?? "#"}>{link.title ?? ""}</Button>}
+    </Banner>
+  )
+}
