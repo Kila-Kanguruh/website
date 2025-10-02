@@ -1,57 +1,41 @@
 ---
 import Button from "../Button/Button.astro";
+import { getCollection } from "astro:content";
+
+const homeItems = await getCollection("home");
+const { title1, title2, title3, title4 } = homeItems[0].data.home;
+const titles = [title1, title2, title3, title4];
 ---
 
 <div class="hero-slider">
   <div class="slides-container">
-    <!-- Slide 1 -->
-    <!-- <div class="slide">
-      <div class="slide-content">
-        <div class="slide-graphic">
-          <img
-            src="/graphics/baby_kangoroo_transparent.png"
-            alt="Baby Kangoroo"
-          />
-        </div>
-        <div class="slide-text">
-          <h2>Wir suchen ab November 2025 2 Kinder!</h2>
-          <Button cta href="/freie-betreuungsplätze" class="hero-button"
-            >Melde dich!</Button
-          >
-        </div>
-      </div>
-    </div> -->
+    {
+      titles.map((title) => {
+        if (!title.show) {
+          return null;
+        }
 
-    <!-- Slide 2 -->
-    <div class="slide">
-      <div class="slide-content">
-        <div class="slide-graphic">
-          <img src="/graphics/kangoroo_transparent.png" alt="Kangoroo" />
-        </div>
-        <div class="slide-text">
-          <h2>Wilkommen im Kinderladen Känguruh!</h2>
-          <Button cta href="/unser-kinderladen" class="hero-button"
-            >Mehr über uns</Button
-          >
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="slide">
-      <div class="slide-content">
-        <div class="slide-graphic">
-          <img src="/graphics/kindertreff_graphic.png" alt="Kangoroo" />
-        </div>
-        <div class="slide-text">
-          <h2>Entdecke den Kindertreff!</h2>
-          <h3>Ab den 18. August 2025 an einzelnen Tagen wieder da!</h3>
-          <Button cta href="/unser-kindertreff" class="hero-button"
-            >Mehr erfahren</Button
-          >
-        </div>
-      </div>
-    </div>
+        return (
+          <div class="slide">
+            <div class="slide-content">
+              <div class="slide-graphic">
+                <img
+                  src={title.image?.node.sourceUrl}
+                  alt={title.image?.node.altText}
+                />
+              </div>
+              <div class="slide-text">
+                <h2>{title.title}</h2>
+                <h3>{title.content}</h3>
+                <Button cta href={title.link?.url ?? ""} class="hero-button">
+                  {title.link?.title ?? ""}
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
   </div>
 
   <div class="slider-controls">
@@ -240,23 +224,25 @@ import Button from "../Button/Button.astro";
         const dot = document.createElement("button");
         dot.classList.add("dot");
         dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
-        if (index === 0) dot.classList.add("active");
+
+        if (index === 0) {
+          dot.classList.add("active");
+        }
+
         dot.addEventListener("click", () => this.goToSlide(index));
         this.dotsContainer?.appendChild(dot);
       });
 
       this.initTouch();
       this.initAutoPlayControls();
-
-      // Start auto-play
       this.startAutoPlay();
     }
 
     initAutoPlayControls() {
-      // Pause auto-play on hover
       this.slidesContainer?.addEventListener("mouseenter", () =>
         this.pauseAutoPlay()
       );
+
       this.slidesContainer?.addEventListener("mouseleave", () =>
         this.resumeAutoPlay()
       );
@@ -266,8 +252,7 @@ import Button from "../Button/Button.astro";
       dots.forEach((dot) => {
         dot.addEventListener("click", () => {
           this.pauseAutoPlay();
-          // Resume auto-play after a delay
-          setTimeout(() => this.resumeAutoPlay(), 3000);
+          window.setTimeout(() => this.resumeAutoPlay(), 3000);
         });
       });
     }
@@ -277,11 +262,13 @@ import Button from "../Button/Button.astro";
       let touchEndX = 0;
       let touchStartY = 0;
       let touchEndY = 0;
+
       this.slidesContainer?.addEventListener("touchstart", (event) => {
         touchStartX = event.touches[0].clientX;
         touchStartY = event.touches[0].clientY;
         this.pauseAutoPlay();
       });
+
       this.slidesContainer?.addEventListener("touchend", (event) => {
         touchEndX = event.changedTouches[0].clientX;
         touchEndY = event.changedTouches[0].clientY;
@@ -299,8 +286,7 @@ import Button from "../Button/Button.astro";
           }
         }
 
-        // Resume auto-play after touch interaction
-        setTimeout(() => this.resumeAutoPlay(), 3000);
+        window.setTimeout(() => this.resumeAutoPlay(), 3000);
       });
     }
 
@@ -326,11 +312,11 @@ import Button from "../Button/Button.astro";
 
     startAutoPlay(interval = 7000) {
       if (this.autoPlayInterval) {
-        clearInterval(this.autoPlayInterval);
+        window.clearInterval(this.autoPlayInterval);
       }
 
       this.isAutoPlaying = true;
-      this.autoPlayInterval = setInterval(() => {
+      this.autoPlayInterval = window.setInterval(() => {
         if (this.isAutoPlaying) {
           this.nextSlide();
         }
@@ -347,9 +333,10 @@ import Button from "../Button/Button.astro";
 
     stopAutoPlay() {
       if (this.autoPlayInterval) {
-        clearInterval(this.autoPlayInterval);
+        window.clearInterval(this.autoPlayInterval);
         this.autoPlayInterval = null;
       }
+
       this.isAutoPlaying = false;
     }
 
@@ -365,7 +352,6 @@ import Button from "../Button/Button.astro";
     }
   }
 
-  // Initialize the slider
   document.addEventListener("DOMContentLoaded", () => {
     new HeroSlider();
   });
