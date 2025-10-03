@@ -1,31 +1,14 @@
 ---
-import Banner from "../components/Banner/Banner.astro";
-import Card from "../components/Card/Card.astro";
 import Divider from "../components/Divider/Divider.astro";
-import GraphicJump from "../components/graphics/GraphicJump/GraphicJump.astro";
-import GraphicTeddy from "../components/graphics/GraphicTeddy/GraphicTeddy.astro";
 import HeroSlider from "../components/HeroSlider/HeroSlider.astro";
-import IconHeart from "../components/icons/IconHeart/IconHeart.astro";
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button/Button.astro";
 import { getCollection } from "astro:content";
-import type { home } from "../content-collections/home";
 import InfoCard from "../components/InfoCard.astro";
 import Callout from "../components/Callout.astro";
 
 const homeItems = await getCollection("home");
-const {
-  title1,
-  title2,
-  title3,
-  title4,
-  callout1,
-  callout2,
-  info1,
-  info2,
-  info3,
-  info4,
-} = homeItems[0].data.home;
+const { callout1, callout2, info1, info2, info3, info4 } =
+  homeItems[0].data.home;
 ---
 
 <Layout

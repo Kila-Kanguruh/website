@@ -1,26 +1,38 @@
 ---
-import GraphicJump from '../../components/graphics/GraphicJump/GraphicJump.astro';
-import HeroImage from '../../components/HeroImage/HeroImage.astro';
-import Layout from '../../layouts/Layout.astro';
+import HeroImage from "../../components/HeroImage/HeroImage.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Banner from "../../components/Banner/Banner.astro";
+
+const freieStellenItems = await getCollection("freieStellen");
+
+const { title, titleimage, callout1, callout2, footer } =
+  freieStellenItems[0].data.freieStellen;
+const callouts = [callout1, callout2];
 ---
 
-<Layout title="freie-stellen" instagram="https://www.instagram.com/kila_kaenguruh/">
-  <HeroImage slot="hero" text="Freie Stellen">
-    <GraphicJump />
+<Layout
+  title={title ?? ""}
+  instagram="https://www.instagram.com/kila_kaenguruh/"
+>
+  <HeroImage slot="hero" text={title ?? ""}>
+    <img src={titleimage?.node.sourceUrl} alt={titleimage?.node.altText} />
   </HeroImage>
-  <div style="display: none">
-    <h2>Pädagogische Stellen:</h2>
-    <p>Bitte meldet euch bei Interesse bei der AG Personal unter <a href="mailto:personal@kilakaenguruh.de">personal@kilakaenguruh.de</a></p>
-  </div>
-  
-  <h2>Bundesfreiwilligendienst (BUFDI):</h2>
-  <p>Wir suchen 2 Bufdis ab August 2025.<p>
-  <p>Bei Interesse meldet euch unter <a href="mailto:bufdi@kilakaenguruh.de">bufdi@kilakaenguruh.de</a></p>
 
-  <h2>Praktikant/innen:</h2>
-  <p>Wir suchen jederzeit Praktikant:innen!</p>
-  <p>
-    Bei Interesse meldet euch bitte beim Team unter: <a href="mailto:team@kilakaenguruh.de">team@kilakaenguruh.de</a> oder telefonisch
-    0351/8020196
-  </p>
+  {
+    callouts.map((callout) => {
+      if (!callout.show) {
+        return null;
+      }
+
+      return (
+        <>
+          <h2>{callout.title}</h2>
+          <Banner title={callout.heading ?? ""}>{callout.content}</Banner>
+        </>
+      );
+    })
+  }
+
+  <p set:html={footer} />
 </Layout>

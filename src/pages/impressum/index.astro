@@ -1,93 +1,35 @@
 ---
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Banner from "../../components/Banner/Banner.astro";
+
+const impressumItems = await getCollection("impressum");
+
+const { title, titleimage, callout1, callout2, footer } =
+  impressumItems[0].data.impressum;
+const callouts = [callout1, callout2];
 ---
 
 <Layout title="impressum" instagram="https://www.instagram.com/kila_kaenguruh/">
-  <HeroImage slot="hero" text="Impressum" />
-  <h3>Anschrift</h3>
-  <p>
-    Kinderladen Känguruh e.V.<br />
-    Böhmische Str. 26, 01099 Dresden<br />
-    Tel. und Fax: 0351/8010621<br />
-    <a href="mailto:mail@kilakaenguruh.de">mail@kilakaenguruh.de</a><br />
-    Vereinsregister Dresden Nr. 884
-  </p>
+  <HeroImage slot="hero" text={title ?? ""}>
+    <img src={titleimage?.node.sourceUrl} alt={titleimage?.node.altText} />
+  </HeroImage>
 
-  <h3>Gefördert durch</h3>
-  <p>Landeshauptstadt Dresden</p>
-  <img src="/images/dresdenlogo2.png" alt="Logo City of Dresden"/>
-    <p>Freistaat Sachsen</p>
-  <img src="/images/sachsenlogo.png" alt="Logo Saxony"/>
-  </p>
-  <p>
-    Diese Maßnahme wird mitfinanziert durch Steuermittel auf der Grundlage der
-    von den Abgeordneten des Sächsischen Landtags beschlossenen Haushaltes.
-  </p>
+  {
+    callouts.map((callout) => {
+      if (!callout.show) {
+        return null;
+      }
 
-  <h3>Haftungsausschluss</h3>
-  <h4>1. Haftungsbeschränkung</h4>
-  <p>
-    Die Inhalte dieser Website werden mit größtmöglicher Sorgfalt erstellt. Der
-    Anbieter übernimmt jedoch keine Gewähr für die Richtigkeit, Vollständigkeit
-    und Aktualität der bereitgestellten Inhalte. Die Nutzung der Inhalte der
-    Website erfolgt auf eigene Gefahr des Nutzers. Namentlich gekennzeichnete
-    Beiträge geben die Meinung des jeweiligen Autors und nicht immer die Meinung
-    des Anbieters wieder. Mit der reinen Nutzung der Website des Anbieters kommt
-    keinerlei Vertragsverhältnis zwischen dem Nutzer und dem Anbieter zustande.
-  </p>
+      return (
+        <>
+          <h2>{callout.title}</h2>
+          <Banner title={callout.heading ?? ""}>{callout.content}</Banner>
+        </>
+      );
+    })
+  }
 
-  <h4>2. Externe Links</h4>
-  <p>
-    Diese Website enthält Verknüpfungen zu Websites Dritter („externe Links“).
-    Diese Websites unterliegen der Haftung der jeweiligen Betreiber. Der
-    Anbieter hat bei der erstmaligen Verknüpfung der externen Links die fremden
-    Inhalte daraufhin überprüft, ob etwaige Rechtsverstöße bestehen. Zu dem
-    Zeitpunkt waren keine Rechtsverstöße ersichtlich. Der Anbieter hat keinerlei
-    Einfluss auf die aktuelle und zukünftige Gestaltung und auf die Inhalte der
-    verknüpften Seiten. Das Setzen von externen Links bedeutet nicht, dass sich
-    der Anbieter die hinter dem Verweis oder Link liegenden Inhalte zu Eigen
-    macht. Eine ständige Kontrolle der externen Links ist für den Anbieter ohne
-    konkrete Hinweise auf Rechtsverstöße nicht zumutbar. Bei Kenntnis von
-    Rechtsverstößen werden jedoch derartige externe Links unverzüglich gelöscht.
-  </p>
-
-  <h3>Datenschutzerklärung</h3>
-  <p>
-    Sie erhalten als Nutzer unserer Internetseite in dieser Datenschutzerklärung
-    alle notwendigen Informationen darüber, wie, in welchem Umfang sowie zu
-    welchem Zweck wir oder Drittanbieter Daten von Ihnen erheben und diese
-    verwenden. Die Erhebung und Nutzung Ihrer Daten erfolgt streng nach den
-    Vorgaben des Bundesdatenschutzgesetzes (BDSG) und des Telemediengesetzes
-    (TMG). Wir fühlen uns der Vertraulichkeit Ihrer personenbezogenen Daten
-    besonders verpflichtet und arbeiten deshalb streng innerhalb der Grenzen,
-    die die gesetzlichen Vorgaben uns setzen. Die Erhebung dieser
-    personenbezogenen Daten erfolgt auf freiwilliger Basis, wenn uns das möglich
-    ist. Auch geben wir diese Daten nur mit Ihrer ausdrücklichen Zustimmung an
-    Dritte weiter. Wir sorgen bei besonders vertraulichen Daten wie im
-    Zahlungsverkehr oder im Hinblick auf Ihre Anfragen an uns durch Einsatz
-    einer SSL-Verschlüsselung für hohe Sicherheit. Wir möchten es aber an dieser
-    Stelle nicht versäumen, auf die allgemeinen Gefahren der Internetnutzung
-    hinzuweisen, auf die wir keinen Einfluss haben. Besonders im E-Mail-Verkehr
-    sind Ihre Daten ohne weitere Vorkehrungen nicht sicher und können unter
-    Umständen von Dritten erfasst werden.
-  </p>
-
-  <h4>Auskunft, Löschung, Sperrung</h4>
-  <p>
-    Sie erhalten jederzeit unentgeltlich Auskunft über die von uns gespeicherten
-    personenbezogenen Daten zu Ihrer Person sowie zur Herkunft, dem Empfänger
-    und dem Zweck von Datenerhebung sowie Datenverarbeitung. Außerdem haben Sie
-    das Recht, die Berichtigung, die Sperrung oder Löschung Ihrer Daten zu
-    verlangen. Ausgenommen davon sind Daten, die aufgrund gesetzlicher
-    Vorschriften aufbewahrt oder zur ordnungsgemäßen Geschäftsabwicklung
-    benötigt werden. Damit eine Datensperre jederzeit realisiert werden kann,
-    werden Daten zu Kontrollzwecken in einer Sperrdatei vorgehalten. Werden
-    Daten nicht von einer gesetzlichen Archivierungspflicht erfasst, löschen wir
-    Ihre Daten auf Ihren Wunsch. Greift die Archivierungspflicht, sperren wir
-    Ihre Daten. Für alle Fragen und Anliegen zur Berichtigung, Sperrung oder
-    Löschung von personenbezogenen Daten wenden Sie sich bitte an unseren
-    Datenschutzbeauftragten unter den Kontaktdaten in dieser
-    Datenschutzerklärung bzw. an die im Impressum genannte Adresse.
-  </p>
+  <p set:html={footer} />
 </Layout>
