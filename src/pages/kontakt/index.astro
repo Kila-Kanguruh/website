@@ -1,39 +1,40 @@
 ---
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Banner from "../../components/Banner/Banner.astro";
+
+const kontaktItems = await getCollection("kontakt");
+
+const { title, titleimage, callout1, callout2, footer } =
+  kontaktItems[0].data.contact;
+const callouts = [callout1, callout2];
 ---
 
-<Layout title="kontakt" instagram="https://www.instagram.com/kila_kaenguruh/">
-  <HeroImage slot="hero" text="Kontakt" />
+<Layout
+  title={title ?? ""}
+  instagram="https://www.instagram.com/kila_kaenguruh/"
+>
+  <HeroImage slot="hero" text={title ?? ""}>
+    <img src={titleimage?.node.sourceUrl} alt={titleimage?.node.altText} />
+  </HeroImage>
 
-  <h2>Kinderladen</h2>
-  <p>
-    <strong>Kinderladen Känguruh e.V.</strong><br />
-    Böhmische Str. 26, 01099 Dresden<br />
-    Tel.: 0351/ 80 20 196<br />
-    Büro & Fax: 0351/ 80 10 621<br />
-    <a href="mailto:mail@kilakaenguruh.de">mail@kilakaenguruh.de</a>
-  </p>
+  {
+    callouts.map((callout) => {
+      if (!callout.show) {
+        return null;
+      }
 
-  <p>
-    <strong>Öffnungszeiten</strong><br />
-    Der Kinderladen ist Montag bis Freitag von 07:30 Uhr bis 17 Uhr geöffnet.
-  </p>
+      return (
+        <>
+          <h2>{callout.title}</h2>
+          <Banner title={callout.heading ?? ""}>{callout.content}</Banner>
+        </>
+      );
+    })
+  }
 
-  <h2>Kindertreff</h2>
-  <p>
-    <strong>Kindertreff</strong><br />
-    Böhmische Str. 26, 01099 Dresden<br />
-    Tel.: 0176 71238715<br />
-    Büro & Fax: 0351/ 80 10 621<br />
-    <a href="mailto:kitreff.kaenguruh@gmx.de">kitreff.kaenguruh@gmx.de</a>
-  </p>
-    
-  <p>
-    <strong>Öffnungszeiten</strong><br />
-    Der Kindertreff ist jeden Montag und Donnerstag von 14 - 18 Uhr geöffnet.
-  </p>
-
+  <p set:html={footer} />
 </Layout>
 
 <style>

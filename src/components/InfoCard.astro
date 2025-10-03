@@ -1,0 +1,28 @@
+---
+import Card from "../components/Card/Card.astro";
+import type { Info } from "../content-collections/home";
+
+type Props = {
+  info: Info;
+};
+
+const { show, title, content, image, imagePosition, link } = Astro.props.info;
+---
+
+{
+  show && (
+    <Card
+      title={title ?? ""}
+      text={content ?? ""}
+      buttonText={link?.title ?? ""}
+      imagePosition={imagePosition?.[0] ?? "left"}
+      buttonLink={link?.url ?? "#"}
+    >
+      <img
+        src={image?.node.sourceUrl ?? ""}
+        alt={image?.node.altText ?? ""}
+        slot="image"
+      />
+    </Card>
+  )
+}

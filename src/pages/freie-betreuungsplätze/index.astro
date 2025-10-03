@@ -1,44 +1,42 @@
 ---
-import GraphicKidPlay from "../../components/graphics/GraphicKidPlay/GraphicKidPlay.astro";
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
 import Layout from "../../layouts/Layout.astro";
 import Banner from "../../components/Banner/Banner.astro";
-import Button from "../../components/Button/Button.astro";
-import IconHeart from "../../components/icons/IconHeart/IconHeart.astro";
-import Input from "../../components/Input/Input.astro";
-import Select from "../../components/Select/Select.astro";
+import { getCollection } from "astro:content";
+
+const freieBetreuungsplaetzeItems = await getCollection(
+  "freieBetreuungsplaetze"
+);
+
+const { title, titleimage, callout1, callout2, footer } =
+  freieBetreuungsplaetzeItems[0].data.freieBetreuungsplaetze;
+const callouts = [callout1, callout2];
 ---
 
 <Layout
-  title="freie-betreuungsplätze"
+  title={title ?? ""}
   instagram="https://www.instagram.com/kila_kaenguruh/"
 >
-  <HeroImage slot="hero" text="Freie Betreuungsplätze">
-    <GraphicKidPlay />
+  <HeroImage slot="hero" text={title ?? ""}>
+    <img src={titleimage?.node.sourceUrl} alt={titleimage?.node.altText} />
   </HeroImage>
 
-  <!-- <h2>Für das Schuljahr 2025/2026:</h2>
-  <Banner title="Wir suchen 2 Kinder ab November!">
-    <IconHeart slot="icon" />
-    Wenn dein Kind ab November 2025 mindestens 18 Monate alt ist, melde dich bei
-    uns!
-    <br />
-    <br />
-    <Button href="/kontakt">Melde dich!</Button>
-  </Banner>
+  {
+    callouts.map((callout) => {
+      if (!callout.show) {
+        return null;
+      }
 
-  <br /> -->
+      return (
+        <>
+          <h2>{callout.title}</h2>
+          <Banner title={callout.heading ?? ""}>{callout.content}</Banner>
+        </>
+      );
+    })
+  }
 
-  <h2>Für das Schuljahr 2026/2027:</h2>
-  <Banner title="Wir suchen 8 Kinder!">Jahrgang 07.2021 bis 02.2025 </Banner>
-
-  <p>
-    Bei Interesse meldet euch bitte <strong
-      >für eine der Infoveranstaltungen</strong
-    > mit dem Kontaktformular an oder schreibt eine Email an AG Kila: <a
-      href="mailto:agkila@kilakaenguruh.de">agkila@kilakaenguruh.de</a
-    >
-  </p>
+  <p set:html={footer} />
 </Layout>
 
 <style is:global>

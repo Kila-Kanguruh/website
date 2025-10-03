@@ -2,7 +2,9 @@ name: Build and Deploy (Astro → SFTP)
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  repository_dispatch:
+    types: [wp-update]
   workflow_dispatch:
 
 jobs:
@@ -16,18 +18,18 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with: { version: 9 }
-        
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          
+
       - name: Install deps
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build Astro
         run: pnpm build
-        
+
       - name: Deploy via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -35,9 +37,9 @@ jobs:
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
           protocol: ftps
-          port: 21              # set to 22 in secrets if unsure
+          port: 21 # set to 22 in secrets if unsure
           local-dir: dist/
-          server-dir: "public_html/"      # e.g. /var/www/html/
+          server-dir: "public_html/" # e.g. /var/www/html/
           exclude: |
             **/.git*
             **/.github*
