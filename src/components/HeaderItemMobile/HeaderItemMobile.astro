@@ -1,5 +1,5 @@
 ---
-import ActiveArrow from '../ActiveArrow/ActiveArrow.astro';
+import ActiveArrow from "../ActiveArrow/ActiveArrow.astro";
 
 const { text, href } = Astro.props;
 const currentPath = Astro.url.pathname;
@@ -13,7 +13,6 @@ const active = currentPath === href;
 </span>
 
 <style>
-  @import '../../styles/colors.css';
   span {
     display: flex;
     justify-content: center;
