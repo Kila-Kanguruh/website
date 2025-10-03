@@ -8,11 +8,10 @@ const currentPath = Astro.url.pathname;
   <div class="icon">
     <slot name="icon" />
   </div>
-  <a class={currentPath === href ? 'active' : ''} href={href}>{text}</a>
+  <a class={currentPath === href ? "active" : ""} href={href}>{text}</a>
 </div>
 
 <style>
-  @import '../../styles/colors.css';
   div {
     display: flex;
     align-items: center;
