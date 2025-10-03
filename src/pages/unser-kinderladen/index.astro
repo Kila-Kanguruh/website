@@ -1,6 +1,5 @@
 ---
 import HeroImage from "../../components/HeroImage/HeroImage.astro";
-import ImageSlider from "../../components/ImageSlider/ImageSlider.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -13,7 +12,11 @@ const tabs = [tab1, tab2, tab3, tab4];
 ---
 
 <Layout
+<<<<<<< Updated upstream
   title="unser-kinderladen"
+=======
+  title={title ?? ""}
+>>>>>>> Stashed changes
   instagram="https://www.instagram.com/kila_kaenguruh/"
 >
   <HeroImage slot="hero" text={title ?? ""}>
