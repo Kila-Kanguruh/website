@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 
 const title = `
   show
@@ -74,7 +75,7 @@ const TitleSchema = z.object({
   image: z
     .object({
       node: z.object({
-        sourceUrl: z.string().url().nullish(),
+        sourceUrl: z.url().nullish(),
         altText: z.string().nullish(),
       }),
     })
@@ -82,7 +83,7 @@ const TitleSchema = z.object({
   link: z
     .object({
       title: z.string().nullish(),
-      url: z.string().url().nullish(),
+      url: z.url().nullish(),
     })
     .nullish(),
 });

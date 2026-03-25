@@ -1,4 +1,5 @@
 ---
+import type { Fragment } from "astro/runtime/server/index.js";
 import type { Callout } from "../content-collections/home";
 import Banner from "./Banner/Banner.astro";
 import Button from "./Button/Button.astro";
@@ -8,7 +9,7 @@ type Props = {
   callout: Callout;
 };
 
-const { show, title, content, image, link } = Astro.props.callout;
+const { show, title, content, link } = Astro.props.callout;
 ---
 
 {

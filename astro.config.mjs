@@ -7,14 +7,12 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: "Fredoka",
-        cssVariable: "--font-fredoka",
-        weights: [300, 400, 500, 600, 700],
-      },
-    ],
-  },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "Fredoka",
+      cssVariable: "--font-fredoka",
+      weights: [300, 400, 500, 600, 700],
+    },
+  ],
 });

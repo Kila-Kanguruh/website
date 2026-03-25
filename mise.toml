@@ -1,0 +1,6 @@
+[hooks]
+enter = "echo 'Loading kila environment variables...'"
+leave = "echo 'Unloading kila environment variables...'"
+
+[tools]
+node = "24"

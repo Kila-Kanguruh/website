@@ -5,7 +5,8 @@ import HeaderItem from "../HeaderItem/HeaderItem.astro";
 import HeaderMenuItemMobile from "../HeaderItemMobile/HeaderItemMobile.astro";
 
 const open = false;
-const pages = await Astro.glob("../../pages/**/*.{astro,md,mdx}");
+const pageModules = import.meta.glob("../../pages/**/*.{astro,md,mdx}", { eager: true });
+const pageEntries = Object.entries(pageModules) as [string, Record<string, any>][];
 
 interface MenuItem {
   title: string;
@@ -13,27 +14,35 @@ interface MenuItem {
   parent?: string;
 }
 
-function extractMenuItems(pages: any[]): MenuItem[] {
-  return pages
-    .map((page) => {
-      const { url, frontmatter } = page;
+function deriveUrl(filePath: string): string {
+  return filePath
+    .replace(/^.*\/pages/, "")
+    .replace(/\.(astro|md|mdx)$/, "")
+    .replace(/\/index$/, "/");
+}
 
-      const blackList = ["impressum", "kontakt"];
+function extractMenuItems(entries: [string, Record<string, any>][]): MenuItem[] {
+  const blackList = ["impressum", "kontakt"];
 
-      if (blackList.some((item) => page.default.moduleId.includes(item))) {
+  return entries
+    .map(([filePath, mod]) => {
+      if (blackList.some((item) => filePath.includes(item))) {
         return null;
       }
 
+      const url = (mod.url as string | undefined) ?? deriveUrl(filePath);
+
       if (url) {
+        const frontmatter = mod.frontmatter as Record<string, string> | undefined;
         return {
           title: frontmatter?.title || getDefaultTitle(url),
           href: url,
-          parent: frontmatter?.parent || null,
-        };
+          parent: frontmatter?.parent,
+        } as MenuItem;
       }
       return null;
     })
-    .filter((item) => item !== null);
+    .filter((item): item is MenuItem => item !== null);
 }
 
 function getDefaultTitle(url: string): string {
@@ -51,7 +60,7 @@ function getDefaultTitle(url: string): string {
   );
 }
 
-const menuItems = extractMenuItems(pages);
+const menuItems = extractMenuItems(pageEntries);
 ---
 
 <script>

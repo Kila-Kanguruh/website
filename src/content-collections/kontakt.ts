@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 
 const callout = `
   show
@@ -66,7 +67,7 @@ export const kontakt = defineCollection({
       titleimage: z
         .object({
           node: z.object({
-            sourceUrl: z.string().url().nullish(),
+            sourceUrl: z.url().nullish(),
             altText: z.string().nullish(),
           }),
         })

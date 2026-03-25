@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 
 const tab = `
   show
@@ -69,7 +70,7 @@ export const kinderladen = defineCollection({
       titleimage: z
         .object({
           node: z.object({
-            sourceUrl: z.string().url().nullish(),
+            sourceUrl: z.url().nullish(),
             altText: z.string().nullish(),
           }),
         })
